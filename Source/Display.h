@@ -11,6 +11,7 @@ bool init();
 void clear();
 void update();
 bool checkForClose();
+bool isOpen();
 void close();
 }
 

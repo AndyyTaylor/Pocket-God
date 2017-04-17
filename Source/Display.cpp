@@ -5,6 +5,9 @@
 namespace Display
 {
 SDL_Window* window;
+const uint HEIGHT = 720;
+const uint WIDTH = 1280;
+bool open = true;
 
 bool initSDL()
 {
@@ -13,7 +16,7 @@ bool initSDL()
 	
 	window = SDL_CreateWindow("Pocket God",
 							  SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-							  640, 480,
+							  WIDTH, HEIGHT,
 							  SDL_WINDOW_OPENGL);
 	
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
@@ -31,6 +34,8 @@ void initGL()
 	glewExperimental = GL_TRUE;
 	glewInit();
 	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+	glEnable(GL_CULL_FACE);
 }
 
 bool init()
@@ -66,8 +71,14 @@ bool checkForClose()
 	return false;
 }
 
+bool isOpen()
+{
+	return open;
+}
+
 void close()
 {
+	open = false;
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }

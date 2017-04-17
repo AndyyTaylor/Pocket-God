@@ -26,4 +26,6 @@ SUBDIRS := \
 . \
 Source/Shaders \
 Source \
+Source/Math \
+Data \
 

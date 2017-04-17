@@ -11,6 +11,8 @@ RM := rm -rf
 -include subdir.mk
 -include Source/Shaders/subdir.mk
 -include Source/subdir.mk
+-include Source/Math/subdir.mk
+-include Data/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)

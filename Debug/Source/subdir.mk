@@ -6,16 +6,19 @@
 CPP_SRCS += \
 ../Source/Application.cpp \
 ../Source/Display.cpp \
+../Source/EventHandler.cpp \
 ../Source/Model.cpp 
 
 OBJS += \
 ./Source/Application.o \
 ./Source/Display.o \
+./Source/EventHandler.o \
 ./Source/Model.o 
 
 CPP_DEPS += \
 ./Source/Application.d \
 ./Source/Display.d \
+./Source/EventHandler.d \
 ./Source/Model.d 
 
 
