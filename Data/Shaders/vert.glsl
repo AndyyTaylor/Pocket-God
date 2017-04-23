@@ -7,6 +7,7 @@ out vec4 ex_Color;
 out vec3 Normal_cameraspace;
 out vec3 LightDirection_cameraspace;
 out vec3 Position_worldspace;
+out vec3 EyeDirection_cameraspace;
 
 uniform mat4 MVP;
 uniform mat4 M;
@@ -19,7 +20,7 @@ void main()
 	Position_worldspace = (M * vec4(in_Position, 1)).xyz;
 	
 	vec3 vertexPosition_cameraspace = (V * M * vec4(in_Position, 1)).xyz;
-	vec3 EyeDirection_cameraspace = vec3(0, 0, 0) - vertexPosition_cameraspace;
+	EyeDirection_cameraspace = vec3(0, 0, 0) - vertexPosition_cameraspace;
 	
 	vec3 LightPosition_worldspace = vec3(0, 1, -1);
 	vec3 LightPosition_cameraspace = (V * vec4(LightPosition_worldspace, 1)).xyz;

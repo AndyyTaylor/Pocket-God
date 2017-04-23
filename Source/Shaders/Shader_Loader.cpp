@@ -7,6 +7,8 @@
 
 #include <GL/Glew.h>
 
+extern std::string PROJECT_PATH;
+
 namespace Shader
 {
 std::string readFile(const char* file)
@@ -14,7 +16,7 @@ std::string readFile(const char* file)
 	std::ifstream t(file);
 	std::stringstream buffer;
 	buffer << t.rdbuf();
-	
+
 	std::string fileContent = buffer.str();
 	return fileContent;
 }
@@ -23,24 +25,24 @@ void printShaderCompilationError(GLuint res)
 {
 	int logLength;
 	glGetShaderiv(res, GL_INFO_LOG_LENGTH, &logLength);
-	
+
 	char* shaderInfoLog = new char[logLength];
 	glGetShaderInfoLog(res, logLength, &logLength, shaderInfoLog);
-	
+
 	std::cerr << shaderInfoLog << std::endl;
 }
 
 GLuint load_shader(const std::string &filename, GLenum type)
 {
-	std::string str = readFile(filename.c_str());
+	std::string str = readFile((PROJECT_PATH + filename).c_str());
 	char* src = const_cast<char*>(str.c_str());
-	
+
 	int32_t size = str.length();
 	GLuint res = glCreateShader(type);
-	
+
 	glShaderSource(res, 1, &src, &size);
 	glCompileShader(res);
-	
+
 	int compile_ok = 0;
 	glGetShaderiv(res, GL_COMPILE_STATUS, &compile_ok);
 	if (compile_ok == 0)
@@ -49,7 +51,7 @@ GLuint load_shader(const std::string &filename, GLenum type)
 		printShaderCompilationError(res);
 		return 0;
 	}
-	
+
 	return res;
 }
 
@@ -57,21 +59,16 @@ GLuint load_program(const std::string &vfile, const std::string &ffile)
 {
 	GLuint vs = load_shader(vfile, GL_VERTEX_SHADER);
 	GLuint fs = load_shader(ffile, GL_FRAGMENT_SHADER);
-	
+
 	GLuint pid = glCreateProgram();
 	glAttachShader(pid, vs);
 	glAttachShader(pid, fs);
-	
+
 	glLinkProgram(pid);
-	
+
 	glDeleteShader(vs);
 	glDeleteShader(fs);
-	
+
 	return pid;
 }
 }
-
-
-
-
-

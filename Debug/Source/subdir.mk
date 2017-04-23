@@ -7,19 +7,22 @@ CPP_SRCS += \
 ../Source/Application.cpp \
 ../Source/Display.cpp \
 ../Source/EventHandler.cpp \
-../Source/Model.cpp 
+../Source/Model.cpp \
+../Source/Text.cpp 
 
 OBJS += \
 ./Source/Application.o \
 ./Source/Display.o \
 ./Source/EventHandler.o \
-./Source/Model.o 
+./Source/Model.o \
+./Source/Text.o 
 
 CPP_DEPS += \
 ./Source/Application.d \
 ./Source/Display.d \
 ./Source/EventHandler.d \
-./Source/Model.d 
+./Source/Model.d \
+./Source/Text.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

@@ -5,6 +5,8 @@
 #include "EventHandler.h"
 #include "Model.h"
 
+#include <chrono>
+
 class Application
 {
 public:
@@ -13,10 +15,14 @@ public:
 	void input();
 	void runMainGameLoop();
 	
+	double getDelta();
+	
 private:
 	Shader::Shader_Program shaderProgram;
 	Model model;
 	EventHandler eventHandler;
+	
+	std::chrono::high_resolution_clock::time_point timePrev;
 };
 
 #endif /* APPLICATION_H_ */

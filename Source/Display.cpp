@@ -5,8 +5,8 @@
 namespace Display
 {
 SDL_Window* window;
-const uint HEIGHT = 720;
 const uint WIDTH = 1280;
+const uint HEIGHT = 720;
 bool open = true;
 
 bool initSDL()
@@ -14,7 +14,7 @@ bool initSDL()
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) 
 		return false;
 	
-	window = SDL_CreateWindow("Pocket God",
+	window = SDL_CreateWindow("Trading Game",
 							  SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 							  WIDTH, HEIGHT,
 							  SDL_WINDOW_OPENGL);
@@ -49,7 +49,7 @@ bool init()
 
 void clear()
 {
-	glClearColor(1.0, 0.0, 0.5, 1.0);
+	glClearColor(0.2, 0.2, 0.2, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
