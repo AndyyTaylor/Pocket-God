@@ -18,6 +18,6 @@ int main(int argc, char* argv[])
 	Application app;
 	app.runMainGameLoop();
 
-	std::cout << "Hello World" << std::endl;
+	//std::cout << "Program Finished" << std::endl;
 	return 0;
 }

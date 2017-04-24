@@ -1,14 +1,14 @@
 #ifndef EVENTHANDLER_H_
 #define EVENTHANDLER_H_
 
-class Model;
+class Camera;
 
 class EventHandler
 {
 public:
 	EventHandler();
-	void input(Model* model);
-	
+	void input(Camera* camera);
+
 private:
 	int prevX, prevY;
 };

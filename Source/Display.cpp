@@ -11,21 +11,21 @@ bool open = true;
 
 bool initSDL()
 {
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) 
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		return false;
-	
+
 	window = SDL_CreateWindow("Trading Game",
 							  SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 							  WIDTH, HEIGHT,
 							  SDL_WINDOW_OPENGL);
-	
+
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_CreateContext(window);
-	
+
 	return true;
 }
 
@@ -35,14 +35,14 @@ void initGL()
 	glewInit();
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
-	glEnable(GL_CULL_FACE);
+	glDisable(GL_CULL_FACE);
 }
 
 bool init()
 {
 	if (!initSDL())
 		return false;
-	
+
 	initGL();
 	return true;
 }

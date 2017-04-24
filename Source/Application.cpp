@@ -16,23 +16,25 @@ void Application::runMainGameLoop()
 {
 	while (Display::isOpen()) // !Display::checkForClose()
 	{
+		float delta = getDelta()/1000;
 		Display::clear();
 		shaderProgram.bind();
 
-		eventHandler.input(&model);
-
-		glm::mat4 m = Maths::createModelMatrix(model.entity);
-		glm::mat4 v = Maths::createViewMatrix();
+		eventHandler.input(&camera);
+		camera.update(delta);
+		//std::cout << camera.rotation.x << std::endl;
+		glm::mat4 m = Maths::createModelMatrix(terrain.model.entity);
+		glm::mat4 v = Maths::createViewMatrix(camera);
 		glm::mat4 mvp = Maths::createProjMatrix() * v * m;
 		shaderProgram.loadMVP(mvp, m, v);
 
-		model.draw();
+		terrain.model.draw();
 
 		shaderProgram.unbind();
 		Display::update();
 
-		float fps = 1000/getDelta();
-		std::cout << fps << std::endl;
+		float fps = 1000/delta;
+		//std::cout << fps << std::endl;
 	}
 	Display::close();
 }

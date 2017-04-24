@@ -9,23 +9,26 @@ class Model
 {
 public:
 	Model();
-	
+
 	void draw();
-	
+
 	void bind();
 	void unbind();
-	
+
 	void loadModel(const char* path);
-	
+	void loadVertices(std::vector<glm::vec3> v, std::vector<glm::vec2> u, std::vector<glm::vec3> n);
+
+	void setupBuffers();
+
 	Entity entity; // temporary
-	
+
 protected:
 	GLuint m_vao;
-	
+
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec2> uvs;
 	std::vector<glm::vec3> normals;
-	
+
 };
 
 

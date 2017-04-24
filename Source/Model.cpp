@@ -43,29 +43,10 @@ std::vector<GLfloat> colors = {
 Model::Model()
 {
 	entity.scale = glm::vec3(1.0, 1.0, 1.0);
-	entity.position = glm::vec3(0.0, -3.0, 3.0);
-	loadModel((PROJECT_PATH + "/Data/cup.obj").c_str());
-	std::cout << (PROJECT_PATH + "/Data/cup.obj").c_str() << std::endl;
-	GLuint pos_vbo;
-	glGenBuffers(1, &pos_vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, pos_vbo);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(glm::vec3), vertices.data(), GL_STATIC_DRAW);
+	//entity.position = glm::vec3(0.0, -3.0, 3.0);
+	//loadModel((PROJECT_PATH + "/Data/cup.obj").c_str());
 
-	GLuint norm_vbo;
-	glGenBuffers(1, &norm_vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, norm_vbo);
-	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), normals.data(), GL_STATIC_DRAW);
 
-	glGenVertexArrays(1, &m_vao);
-	glBindVertexArray(m_vao);
-
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, pos_vbo);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-
-	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, norm_vbo);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
 	//entity.rotation.z = 1;
 }
@@ -163,6 +144,39 @@ void Model::loadModel(const char * path)
 		normals.push_back(normal);
 	}
 	std::cout << "Finished loadModel()" << std::endl;
+}
+
+void Model::loadVertices(std::vector<glm::vec3> v, std::vector<glm::vec2> u, std::vector<glm::vec3> n)
+{
+	vertices = v;
+	uvs = u;
+	normals = n;
+	setupBuffers();
+	//std::cout << vertices.size() << std::endl << normals.size() << std::endl;
+}
+
+void Model::setupBuffers()
+{
+	GLuint pos_vbo;
+	glGenBuffers(1, &pos_vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, pos_vbo);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(glm::vec3), vertices.data(), GL_STATIC_DRAW);
+
+	GLuint norm_vbo;
+	glGenBuffers(1, &norm_vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, norm_vbo);
+	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), normals.data(), GL_STATIC_DRAW);
+
+	glGenVertexArrays(1, &m_vao);
+	glBindVertexArray(m_vao);
+
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, pos_vbo);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, norm_vbo);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 }
 
 void Model::bind()

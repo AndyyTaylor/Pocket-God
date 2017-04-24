@@ -4,6 +4,8 @@
 #include "Shaders/Shader_Program.h"
 #include "EventHandler.h"
 #include "Model.h"
+#include "Terrain/Terrain.h"
+#include "Camera.h"
 
 #include <chrono>
 
@@ -11,17 +13,19 @@ class Application
 {
 public:
 	Application();
-	
+
 	void input();
 	void runMainGameLoop();
-	
+
 	double getDelta();
-	
+
 private:
 	Shader::Shader_Program shaderProgram;
 	Model model;
 	EventHandler eventHandler;
-	
+	Terrain terrain;
+	Camera camera;
+
 	std::chrono::high_resolution_clock::time_point timePrev;
 };
 
