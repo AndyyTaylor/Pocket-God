@@ -1,3 +1,4 @@
+// Copyright 2017 Andy Taylor
 #include <iostream>
 
 #include "Source/Display.h"
@@ -5,19 +6,18 @@
 
 #include <string>
 
-std::string PROJECT_PATH;
+std::string PROJECT_PATH; // NOLINT - POD only for globals
 
-int main(int argc, char* argv[])
-{
-	if (!Display::init())
-		return -1;
+int main(int argc, char* argv[]) {
+    if (!Display::init())
+      return -1;
 
-	std::string s(argv[0]);
-	PROJECT_PATH = s.substr(0, s.length()-5);
-	std::cout << PROJECT_PATH << std::endl;
-	Application app;
-	app.runMainGameLoop();
+    std::string s(argv[0]);
+    PROJECT_PATH = s.substr(0, s.length()-5);
+    std::cout << PROJECT_PATH << std::endl;
+    Application app;
+    app.runMainGameLoop();
 
-	//std::cout << "Program Finished" << std::endl;
-	return 0;
+    // std::cout << "Program Finished" << std::endl;
+    return 0;
 }

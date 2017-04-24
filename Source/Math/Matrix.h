@@ -1,3 +1,4 @@
+// Copyright 2017 Andy Taylor
 #ifndef MATRIX_H_
 #define MATRIX_H_
 
@@ -6,8 +7,7 @@
 struct Entity;
 class Camera;
 
-namespace Maths
-{
+namespace Maths {
 glm::mat4 createViewMatrix(const Camera& camera);
 glm::mat4 createModelMatrix(const Entity &entity);
 glm::mat4 createProjMatrix();

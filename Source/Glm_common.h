@@ -1,3 +1,4 @@
+// Copyright 2017 Andy Taylor
 #ifndef GLM_COMMON_H_
 #define GLM_COMMON_H_
 

@@ -1,15 +1,15 @@
+// Copyright 2017 Andy Taylor
 #ifndef CAMERA_H_INCLUDED
 #define CAMERA_H_INCLUDED
 
 #include "Entity.h"
 
-class Camera : public Entity
-{
-public:
+class Camera : public Entity {
+ public:
     bool movingLeft = false, movingRight = false,
          movingUp = false, movingDown = false,
          movingForward = false, movingBackward = false;
-    float speed = 5;
+    float speed = 50;
 
     Camera();
 
@@ -17,4 +17,4 @@ public:
 };
 
 
-#endif
+#endif  /* CAMERA_H */
