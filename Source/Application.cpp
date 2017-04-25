@@ -4,6 +4,7 @@
 #include "Display.h"
 #include "Glm_common.h"
 #include "Math/Matrix.h"
+#include "Entity.h"
 
 #include <chrono>  // NOLINT - <chrono> is unnaproved
 
@@ -17,8 +18,10 @@ void Application::runMainGameLoop() {
         Display::clear();
         shaderProgram.bind();
 
-        eventHandler.input(&camera);
-        camera.update(delta);
+        eventHandler.input(&camera, &player);
+        player.update(delta);
+        player.position.y = terrain.getHeightAt(player.position.x, player.position.z);
+        camera.update((Entity) player);
         // std::cout << camera.position.x << ", " << camera.position.z << std::endl;
         glm::mat4 m = Maths::createModelMatrix(terrain.model.entity);
         glm::mat4 v = Maths::createViewMatrix(camera);
@@ -30,7 +33,7 @@ void Application::runMainGameLoop() {
         shaderProgram.unbind();
         Display::update();
 
-        float fps = 1000/delta;
+        // float fps = 1000/delta;
         // std::cout << fps << std::endl;
     }
     Display::close();

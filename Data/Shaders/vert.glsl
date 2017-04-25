@@ -28,5 +28,5 @@ void main()
 
 	Normal_cameraspace = (V * M * vec4(in_Normal, 0)).xyz; // Heads up this totally breaks when scaling the model, ur meant to use the 'inverse transpose' but idk wtf that is :)
 
-	ex_Color = vec4(0.0, 0.0, 1.0, 1.0);
+	ex_Color = vec4(0.0, 1.0, 0.0, 1.0);
 }

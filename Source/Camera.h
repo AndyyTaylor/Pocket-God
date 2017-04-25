@@ -6,14 +6,9 @@
 
 class Camera : public Entity {
  public:
-    bool movingLeft = false, movingRight = false,
-         movingUp = false, movingDown = false,
-         movingForward = false, movingBackward = false;
-    float speed = 50;
-
     Camera();
 
-    void update(float delta);
+    void update(Entity entity);
 };
 
 

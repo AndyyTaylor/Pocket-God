@@ -47,7 +47,7 @@ float Terrain::getHeight(int x, int y) {
     float height = (r * g * b) / (float) MAX_PIXEL_COLOUR;
     height -= 0.5;
     height *= 2 * MAX_HEIGHT;
-    std::cout << height << std::endl;
+    //std::cout << height << std::endl;
     return height;
 }
 
@@ -71,8 +71,9 @@ void Terrain::generateTerrain() {
 
     float s = (float) SIZE / (float) VERTEX_COUNT;
     float s2 = s/2;
-    for (int x = 0; x < VERTEX_COUNT; x++) {
-        for (int y = 0; y < VERTEX_COUNT; y++) {
+    for (int y = 0; y < VERTEX_COUNT; y++) {
+        for (int x = 0; x < VERTEX_COUNT; x++) {
+            heights.push_back(getHeight((int) (x*s-s2), (int) (y*s+s2)));
             vertices.push_back(glm::vec3(x*s-s2, getHeight((int) (x*s-s2), (int) (y*s+s2)), y*s+s2));
             vertices.push_back(glm::vec3(x*s+s2, getHeight((int) (x*s+s2), (int) (y*s+s2)), y*s+s2));
             vertices.push_back(glm::vec3(x*s-s2, getHeight((int) (x*s-s2), (int) (y*s-s2)), y*s-s2));
@@ -101,9 +102,19 @@ void Terrain::generateTerrain() {
         normals.push_back(N);
     }
 
-    std::cout << "MinX:\t" << minX << std::endl;
+    /*std::cout << "MinX:\t" << minX << std::endl;
     std::cout << "MaxX:\t" << maxX << std::endl;
     std::cout << "MinY:\t" << minY << std::endl;
-    std::cout << "MaxY:\t" << maxY << std::endl;
+    std::cout << "MaxY:\t" << maxY << std::endl;*/
+    std::cout << vertices.size() / 3;
     model.loadVertices(vertices, uvs, normals);
+}
+
+float Terrain::getHeightAt(int x, int z) {
+    int gridX = floor((float) x / (float) SIZE * VERTEX_COUNT);
+    int gridZ = floor((float) z / (float) SIZE * VERTEX_COUNT);
+    int index = gridZ * VERTEX_COUNT + gridX;
+    if (index < 0 || index >= heights.size()) return 0;
+    std::cout << gridX << ", " << gridZ << std::endl;
+    return heights[index];
 }

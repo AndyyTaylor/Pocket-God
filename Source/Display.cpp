@@ -18,7 +18,7 @@ bool initSDL() {
                               WIDTH, HEIGHT,
                               SDL_WINDOW_OPENGL);
     SDL_SetRelativeMouseMode(SDL_TRUE);
-    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+    // SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
                         SDL_GL_CONTEXT_PROFILE_CORE);

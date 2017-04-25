@@ -3,11 +3,12 @@
 #define EVENTHANDLER_H_
 
 class Camera;
+class Player;
 
 class EventHandler {
  public:
     EventHandler();
-    void input(Camera* camera);
+    void input(Camera* camera, Player* player);
 };
 
 #endif /* EVENTHANDLER_H_ */

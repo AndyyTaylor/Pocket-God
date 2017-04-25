@@ -5,11 +5,12 @@
 #include <SDL2/SDL.h>
 #include "Display.h"
 #include "Camera.h"
+#include "Player.h"
 
 EventHandler::EventHandler() {
 }
 
-void EventHandler::input(Camera* camera) {
+void EventHandler::input(Camera* camera, Player* player) {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT
@@ -18,36 +19,36 @@ void EventHandler::input(Camera* camera) {
         } else if (event.type == SDL_KEYDOWN) {
             SDL_Keycode key = event.key.keysym.sym;
             if (key == SDLK_w) {
-                camera->movingForward = true;
+                player->movingForward = true;
             } else if (key == SDLK_s) {
-                camera->movingBackward = true;
+                player->movingBackward = true;
             } else if (key == SDLK_a) {
-                camera->movingLeft = true;
+                player->movingLeft = true;
             } else if (key == SDLK_d) {
-                camera->movingRight = true;
+                player->movingRight = true;
             } else if (key == SDLK_SPACE) {
-                camera->movingUp = true;
+                player->movingUp = true;
             } else if (key == SDLK_LSHIFT) {
-                camera->movingDown = true;
+                player->movingDown = true;
             }
         } else if (event.type == SDL_KEYUP) {
             SDL_Keycode key = event.key.keysym.sym;
             if (key == SDLK_w) {
-                camera->movingForward = false;
+                player->movingForward = false;
             } else if (key == SDLK_s) {
-                camera->movingBackward = false;
+                player->movingBackward = false;
             } else if (key == SDLK_a) {
-                camera->movingLeft = false;
+                player->movingLeft = false;
             } else if (key == SDLK_d) {
-                camera->movingRight = false;
+                player->movingRight = false;
             } else if (key == SDLK_SPACE) {
-                camera->movingUp = false;
+                player->movingUp = false;
             } else if (key == SDLK_LSHIFT) {
-                camera->movingDown = false;
+                player->movingDown = false;
             }
         } else if (event.type == SDL_MOUSEMOTION) {
-            camera->rotation.y -= event.motion.xrel/3;  // MOUSE_SENSITIVITY
-            camera->rotation.x += event.motion.yrel/3;
+            player->rotation.y += event.motion.xrel/3;  // MOUSE_SENSITIVITY
+            player->rotation.x += event.motion.yrel/3;
         }
     }
 }

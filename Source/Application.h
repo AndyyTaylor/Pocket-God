@@ -7,6 +7,7 @@
 #include "Model.h"
 #include "Terrain/Terrain.h"
 #include "Camera.h"
+#include "Player.h"
 
 #include <chrono>  // NOLINT - <chrono> is unapproved
 
@@ -25,6 +26,7 @@ class Application {
     EventHandler eventHandler;
     Terrain terrain;
     Camera camera;
+    Player player;
 
     std::chrono::high_resolution_clock::time_point timePrev;
 };
