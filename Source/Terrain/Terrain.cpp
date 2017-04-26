@@ -106,15 +106,41 @@ void Terrain::generateTerrain() {
     std::cout << "MaxX:\t" << maxX << std::endl;
     std::cout << "MinY:\t" << minY << std::endl;
     std::cout << "MaxY:\t" << maxY << std::endl;*/
-    std::cout << vertices.size() / 3;
+    std::cout << vertices.size() / 3 << std::endl;
     model.loadVertices(vertices, uvs, normals);
 }
 
+float barryCentric(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 pos) {
+    float det = (p2.z - p3.z) * (p1.x - p3.x) + (p3.x - p2.x) * (p1.z - p3.z);
+	float l1 = ((p2.z - p3.z) * (pos.x - p3.x) + (p3.x - p2.x) * (pos.y - p3.z)) / det;
+	float l2 = ((p3.z - p1.z) * (pos.x - p3.x) + (p1.x - p3.x) * (pos.y - p3.z)) / det;
+	float l3 = 1.0f - l1 - l2;
+	return l1 * p1.y + l2 * p2.y + l3 * p3.y;
+}
+
 float Terrain::getHeightAt(int x, int z) {
-    int gridX = floor((float) x / (float) SIZE * VERTEX_COUNT);
-    int gridZ = floor((float) z / (float) SIZE * VERTEX_COUNT);
-    int index = gridZ * VERTEX_COUNT + gridX;
+    float gridX = (float) x / (float) SIZE * VERTEX_COUNT;
+    float gridZ = (float) z / (float) SIZE * VERTEX_COUNT;
+    int index = floor(gridZ) * VERTEX_COUNT + floor(gridX);
     if (index < 0 || index >= heights.size()) return 0;
-    std::cout << gridX << ", " << gridZ << std::endl;
-    return heights[index];
+
+    glm::vec3 p1, p2, p3;
+    float height;
+    if (gridX-floor(gridX) < 1 - (gridZ-floor(gridZ))) {
+        height = barryCentric(glm::vec3(0, heights[index], 0),
+                              glm::vec3(1, heights[index+1], 0),
+                              glm::vec3(0, heights[index+VERTEX_COUNT], 1),
+                              glm::vec2(gridX-floor(gridX), gridZ-floor(gridZ)));
+        //height = 40;
+    } else {
+        height = barryCentric(glm::vec3(1, heights[index+1], 0),
+                              glm::vec3(1, heights[index+1+VERTEX_COUNT], 1),
+                              glm::vec3(0, heights[index+VERTEX_COUNT], 1),
+                              glm::vec2(gridX-floor(gridX), gridZ-floor(gridZ)));
+
+    }
+
+
+    //std::cout << gridX-floor(gridX) << ", " << gridZ-floor(gridZ) << std::endl;
+    return height;
 }

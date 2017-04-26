@@ -19,8 +19,7 @@ void Application::runMainGameLoop() {
         shaderProgram.bind();
 
         eventHandler.input(&camera, &player);
-        player.update(delta);
-        player.position.y = terrain.getHeightAt(player.position.x, player.position.z);
+        player.update(delta, &terrain);
         camera.update((Entity) player);
         // std::cout << camera.position.x << ", " << camera.position.z << std::endl;
         glm::mat4 m = Maths::createModelMatrix(terrain.model.entity);

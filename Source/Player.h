@@ -3,15 +3,21 @@
 #define PLAYER_H_INCLUDED
 
 #include "Entity.h"
+#include "Terrain/Terrain.h"
 
 class Player : public Entity {
  public:
     bool movingLeft = false, movingRight = false,
       movingUp = false, movingDown = false,
       movingForward = false, movingBackward = false;
-    float speed = 50;
 
-    void update(float dt);
+    void update(float dt, Terrain* terrain);
+
+ protected:
+    float speed = 150, jumpheight = 250;
+    bool isOnGround = false;
+
+    glm::vec3 dpos;
 };
 
 
