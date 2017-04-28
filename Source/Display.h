@@ -13,6 +13,7 @@ void update();
 bool checkForClose();
 bool isOpen();
 void close();
+void toggleMesh();
 }
 
 #endif /* DISPLAY_H_ */

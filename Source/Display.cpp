@@ -8,6 +8,7 @@ SDL_Window* window;
 const uint WIDTH = 1280;
 const uint HEIGHT = 720;
 bool open = true;
+int polygonType = 0;
 
 bool initSDL() {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -37,6 +38,9 @@ void initGL() {
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
     glDisable(GL_CULL_FACE);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 bool init() {
@@ -68,6 +72,19 @@ bool checkForClose() {
 
 bool isOpen() {
     return open;
+}
+
+void toggleMesh() {
+    polygonType++;
+    if (polygonType > 2) polygonType = 0;
+
+    if (polygonType == 0) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    } else if (polygonType == 1) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+    } else {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }
 }
 
 void close() {

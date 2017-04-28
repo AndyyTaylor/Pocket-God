@@ -8,6 +8,7 @@
 #include "Terrain/Terrain.h"
 #include "Camera.h"
 #include "Player.h"
+#include "Hud/MasterHUD.h"
 
 #include <chrono>  // NOLINT - <chrono> is unapproved
 
@@ -21,7 +22,8 @@ class Application {
     double getDelta();
 
  private:
-    Shader::Shader_Program shaderProgram;
+    Shader::Shader_Program simpleShader;
+    MasterHUD hud;
     Model model;
     EventHandler eventHandler;
     Terrain terrain;

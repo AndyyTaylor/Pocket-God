@@ -1,16 +1,19 @@
 // Copyright 2017 Andy Taylor
 #include "EventHandler.h"
 
-#include <iostream>
 #include <SDL2/SDL.h>
+
+#include <iostream>
+
 #include "Display.h"
 #include "Camera.h"
 #include "Player.h"
+#include "Terrain/Terrain.h"
 
 EventHandler::EventHandler() {
 }
 
-void EventHandler::input(Camera* camera, Player* player) {
+void EventHandler::input(Camera* camera, Player* player, Terrain* terrain) {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT
@@ -30,6 +33,8 @@ void EventHandler::input(Camera* camera, Player* player) {
                 player->movingUp = true;
             } else if (key == SDLK_LSHIFT) {
                 player->movingDown = true;
+            } else if (key == SDLK_r) {
+                Display::toggleMesh();
             }
         } else if (event.type == SDL_KEYUP) {
             SDL_Keycode key = event.key.keysym.sym;
@@ -49,6 +54,8 @@ void EventHandler::input(Camera* camera, Player* player) {
         } else if (event.type == SDL_MOUSEMOTION) {
             player->rotation.y += event.motion.xrel/3;  // MOUSE_SENSITIVITY
             player->rotation.x += event.motion.yrel/3;
+        } else if (event.type == SDL_MOUSEWHEEL) {
+            terrain->updateDiv(event.wheel.y);
         }
     }
 }

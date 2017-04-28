@@ -40,5 +40,5 @@ void Player::update(float dt, Terrain* terrain) {
         isOnGround = false;
     }
 
-    //if (position.y < 0) position.y = 0;
+    // if (position.y < 0) position.y = 0;
 }

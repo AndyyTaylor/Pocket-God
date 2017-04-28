@@ -4,11 +4,12 @@
 
 class Camera;
 class Player;
+class Terrain;
 
 class EventHandler {
  public:
     EventHandler();
-    void input(Camera* camera, Player* player);
+    void input(Camera* camera, Player* player, Terrain* terrain);
 };
 
 #endif /* EVENTHANDLER_H_ */

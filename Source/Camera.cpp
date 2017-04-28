@@ -9,6 +9,6 @@ Camera::Camera() {
 }
 
 void Camera::update(Entity entity) {
-    position = glm::vec3(entity.position.x, entity.position.y += 20, entity.position.z);
+    position = glm::vec3(entity.position.x, entity.position.y += 30, entity.position.z);
     rotation = entity.rotation;
 }

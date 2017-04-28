@@ -9,30 +9,35 @@
 #include <chrono>  // NOLINT - <chrono> is unnaproved
 
 Application::Application()
-: shaderProgram("/Data/Shaders/vert.glsl", "/Data/Shaders/frag.glsl") {
+: simpleShader("/Data/Shaders/vert.glsl", "/Data/Shaders/frag.glsl")
+, hud("/Data/Shaders/2dvert.glsl", "/Data/Shaders/2dfrag.glsl") {
 }
 
 void Application::runMainGameLoop() {
     while (Display::isOpen()) {
         float delta = getDelta()/1000;
-        Display::clear();
-        shaderProgram.bind();
 
-        eventHandler.input(&camera, &player);
+        Display::clear();
+        simpleShader.bind();
+
+        eventHandler.input(&camera, &player, &terrain);
         player.update(delta, &terrain);
         camera.update((Entity) player);
-        // std::cout << camera.position.x << ", " << camera.position.z << std::endl;
+
         glm::mat4 m = Maths::createModelMatrix(terrain.model.entity);
         glm::mat4 v = Maths::createViewMatrix(camera);
         glm::mat4 mvp = Maths::createProjMatrix() * v * m;
-        shaderProgram.loadMVP(mvp, m, v);
+        simpleShader.loadMVP(mvp, m, v);
 
         terrain.model.draw();
 
-        shaderProgram.unbind();
+        simpleShader.unbind();
+
+        hud.render();
+
         Display::update();
 
-        // float fps = 1000/delta;
+        float fps = 1/delta;
         // std::cout << fps << std::endl;
     }
     Display::close();

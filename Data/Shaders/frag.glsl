@@ -1,12 +1,14 @@
 #version 410
 
-in vec4 ex_Color;
+in vec2 ex_UV;
 in vec3 Normal_cameraspace;
 in vec3 LightDirection_cameraspace;
 in vec3 Position_worldspace;
 in vec3 EyeDirection_cameraspace;
 
 out vec4 frag_Color;
+
+uniform sampler2D tex;
 
 void main()
 {
@@ -23,9 +25,12 @@ void main()
 	vec3 R = reflect(-l, n);
 	float cosAlpha = clamp(dot(E, R), 0, 1);
 
-	vec3 ambientColor = vec3(0.2, 0.2, 0.2) * ex_Color.xyz;
+    vec4 ex_Color = texture(tex, ex_UV).rgba;
+
+	vec3 ambientColor = vec3(0.5, 0.5, 0.5) * ex_Color.xyz;
 	frag_Color = vec4(ambientColor, 0.0)  // Ambient lighting
 				 + ex_Color * LightColor * LightPower * cosTheta / (distance*distance); // Diffuse lighting
 				 + ex_Color * LightColor * LightPower * pow(cosAlpha, 5) / (distance*distance); // Specular lighting
+    frag_Color.a = 1;   // FIX
 	//frag_Color = vec4(1.0, 1.0, 1.0, 1.0);
 }

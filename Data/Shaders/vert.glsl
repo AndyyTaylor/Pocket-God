@@ -1,9 +1,10 @@
 #version 410
 
 layout(location = 0) in vec3 in_Position;
-layout(location = 1) in vec3 in_Normal;
+layout(location = 1) in vec2 in_UV;
+layout(location = 2) in vec3 in_Normal;
 
-out vec4 ex_Color;
+out vec2 ex_UV;
 out vec3 Normal_cameraspace;
 out vec3 LightDirection_cameraspace;
 out vec3 Position_worldspace;
@@ -28,5 +29,5 @@ void main()
 
 	Normal_cameraspace = (V * M * vec4(in_Normal, 0)).xyz; // Heads up this totally breaks when scaling the model, ur meant to use the 'inverse transpose' but idk wtf that is :)
 
-	ex_Color = vec4(0.0, 1.0, 0.0, 1.0);
+	ex_UV = in_UV;
 }

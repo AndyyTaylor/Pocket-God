@@ -62,8 +62,9 @@ void Terrain::generateTerrain() {
     };*/
 
     std::vector<glm::vec3> vertices;
+    std::vector<glm::vec2> uvs;
 
-    img = IMG_Load((PROJECT_PATH + "/Data/heightmap.png").c_str());
+    img = IMG_Load((PROJECT_PATH + "/Data/imgs/heightmap.png").c_str());
     if (img == NULL) {
         std::cerr << "Failed to load image" << std::endl;
         return;
@@ -80,10 +81,18 @@ void Terrain::generateTerrain() {
             vertices.push_back(glm::vec3(x*s-s2, getHeight((int) (x*s-s2), (int) (y*s-s2)), y*s-s2));
             vertices.push_back(glm::vec3(x*s+s2, getHeight((int) (x*s+s2), (int) (y*s+s2)), y*s+s2));
             vertices.push_back(glm::vec3(x*s+s2, getHeight((int) (x*s+s2), (int) (y*s-s2)), y*s-s2));
+
+            float xoff = (float) ((int) x % (int) div)/div, yoff = (float) ((int) y % (int) div)/div;
+            uvs.push_back(glm::vec2(xoff, yoff+1/div));
+            uvs.push_back(glm::vec2(xoff+1/div, yoff+1/div));
+            uvs.push_back(glm::vec2(xoff, yoff));
+            uvs.push_back(glm::vec2(xoff, yoff));
+            uvs.push_back(glm::vec2(xoff+1/div, yoff+1/div));
+            uvs.push_back(glm::vec2(xoff+1/div, yoff));
         }
     }
 
-    std::vector<glm::vec2> uvs;  // One day
+
 
     std::vector<glm::vec3> normals;
 
@@ -107,7 +116,7 @@ void Terrain::generateTerrain() {
     std::cout << "MinY:\t" << minY << std::endl;
     std::cout << "MaxY:\t" << maxY << std::endl;*/
     std::cout << vertices.size() / 3 << std::endl;
-    model.loadVertices(vertices, uvs, normals);
+    model.loadVertices(vertices, uvs, normals, "imgs/grass.jpg");
 }
 
 float barryCentric(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 pos) {
@@ -143,4 +152,9 @@ float Terrain::getHeightAt(int x, int z) {
 
     //std::cout << gridX-floor(gridX) << ", " << gridZ-floor(gridZ) << std::endl;
     return height;
+}
+
+void Terrain::updateDiv(float d) {
+    div += d;
+    generateTerrain();
 }
