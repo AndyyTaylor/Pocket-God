@@ -11,6 +11,12 @@
 Application::Application()
 : simpleShader("/Data/Shaders/vert.glsl", "/Data/Shaders/frag.glsl")
 , hud("/Data/Shaders/2dvert.glsl", "/Data/Shaders/2dfrag.glsl") {
+    for (int y = 0; y < 4; y++) {
+        for (int x = 0; x < 4; x++) {
+            Terrain t = Terrain(y*800, x*800);
+            terrains.push_back(t);
+        }
+    }
 }
 
 void Application::runMainGameLoop() {
@@ -20,16 +26,19 @@ void Application::runMainGameLoop() {
         Display::clear();
         simpleShader.bind();
 
-        eventHandler.input(&camera, &player, &terrain);
-        player.update(delta, &terrain);
+        eventHandler.input(&camera, &player, &terrains);
+        player.update(delta, &terrains);
         camera.update((Entity) player);
 
-        glm::mat4 m = Maths::createModelMatrix(terrain.model.entity);
-        glm::mat4 v = Maths::createViewMatrix(camera);
-        glm::mat4 mvp = Maths::createProjMatrix() * v * m;
-        simpleShader.loadMVP(mvp, m, v);
 
-        terrain.model.draw();
+        for (int i = 0; i < terrains.size(); i++) {
+            glm::mat4 m = Maths::createModelMatrix(terrains[i].model.entity);
+            glm::mat4 v = Maths::createViewMatrix(camera);
+            glm::mat4 mvp = Maths::createProjMatrix() * v * m;
+            simpleShader.loadMVP(mvp, m, v);
+
+            terrains[i].model.draw();
+        }
 
         simpleShader.unbind();
 
@@ -38,7 +47,7 @@ void Application::runMainGameLoop() {
         Display::update();
 
         float fps = 1/delta;
-        // std::cout << fps << std::endl;
+        std::cout << "FPS2: " << fps << std::endl;
     }
     Display::close();
 }

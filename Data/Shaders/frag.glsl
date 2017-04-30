@@ -19,13 +19,14 @@ void main()
 	float distance = length(vec3(500.0, 500.0, 800.0) - Position_worldspace);
 
 	vec4 LightColor = vec4(1.0, 1.0, 1.0, 1.0);
-	float LightPower = 200000;
+	float LightPower = 400000;
 
 	vec3 E = normalize(EyeDirection_cameraspace);
 	vec3 R = reflect(-l, n);
 	float cosAlpha = clamp(dot(E, R), 0, 1);
 
-    vec4 ex_Color = texture(tex, ex_UV).rgba;
+    // vec4 ex_Color = texture(tex, ex_UV).rgba;
+    vec4 ex_Color = vec4(0.0, 1.0, 0.0, 1.0);
 
 	vec3 ambientColor = vec3(0.5, 0.5, 0.5) * ex_Color.xyz;
 	frag_Color = vec4(ambientColor, 0.0)  // Ambient lighting

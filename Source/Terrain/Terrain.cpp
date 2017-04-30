@@ -12,7 +12,9 @@
 
 extern std::string PROJECT_PATH;
 
-Terrain::Terrain() {
+Terrain::Terrain(int worldX, int worldY)
+: worldX(worldX)
+, worldY(worldY) {
     generateTerrain();
 }
 
@@ -116,7 +118,10 @@ void Terrain::generateTerrain() {
     std::cout << "MinY:\t" << minY << std::endl;
     std::cout << "MaxY:\t" << maxY << std::endl;*/
     std::cout << vertices.size() / 3 << std::endl;
-    model.loadVertices(vertices, uvs, normals, "imgs/grass.jpg");
+    model.loadVertices(vertices, uvs, normals, "imgs/grass4.png");
+
+    model.entity.position.x = worldX;
+    model.entity.position.z = worldY;  // Yeah i fucked up
 }
 
 float barryCentric(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 pos) {

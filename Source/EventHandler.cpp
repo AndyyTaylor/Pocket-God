@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 
 #include <iostream>
+#include <vector>
 
 #include "Display.h"
 #include "Camera.h"
@@ -13,7 +14,7 @@
 EventHandler::EventHandler() {
 }
 
-void EventHandler::input(Camera* camera, Player* player, Terrain* terrain) {
+void EventHandler::input(Camera* camera, Player* player, std::vector<Terrain>* terrains) {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT
@@ -55,7 +56,10 @@ void EventHandler::input(Camera* camera, Player* player, Terrain* terrain) {
             player->rotation.y += event.motion.xrel/3;  // MOUSE_SENSITIVITY
             player->rotation.x += event.motion.yrel/3;
         } else if (event.type == SDL_MOUSEWHEEL) {
-            terrain->updateDiv(event.wheel.y);
+            for (int i = 0; i < terrains->size(); i++) {
+                /// Terrain* t = terrains[i];
+                // t->updateDiv(event.wheel.y);
+            }
         }
     }
 }

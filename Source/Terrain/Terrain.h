@@ -10,10 +10,10 @@ class Terrain {
  public:
     static const int SIZE = 800;
     static const int VERTEX_COUNT = 256;
-    static const int MAX_HEIGHT = 10;
+    static const int MAX_HEIGHT = 200;
     static const int MAX_PIXEL_COLOUR = 256*256*256;
 
-    Terrain();
+    Terrain(int worldX, int worldY);
 
     float getHeightAt(int x, int z);
 
@@ -22,8 +22,10 @@ class Terrain {
     Model model;  // m_ for privates?
 
     void updateDiv(float d);
+
  private:
     SDL_Surface* img;
+    int worldX, worldY;
     int maxX, minX, maxY, minY;
     float div = 20;
 

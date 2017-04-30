@@ -14,19 +14,23 @@ Image::Image(int x2, int y2, int w, int h, std::string f) {  // HACK should be i
     height = h;
     filename = f;
 
-    vertices.push_back(glm::vec2(x+0, y+0));
-    vertices.push_back(glm::vec2(x+width, y+height));
     vertices.push_back(glm::vec2(x+0, y+height));
-    vertices.push_back(glm::vec2(x+0, y+0));
-    vertices.push_back(glm::vec2(x+width, y+0));
     vertices.push_back(glm::vec2(x+width, y+height));
+    vertices.push_back(glm::vec2(x+0, y+0));
 
-    uvs.push_back(glm::vec2(0, 0));
-    uvs.push_back(glm::vec2(1, 1));
+
+    vertices.push_back(glm::vec2(x+width, y+height));
+    vertices.push_back(glm::vec2(x+width, y+0));
+    vertices.push_back(glm::vec2(x+0, y+0));
+
+
     uvs.push_back(glm::vec2(0, 1));
-    uvs.push_back(glm::vec2(0, 0));
-    uvs.push_back(glm::vec2(1, 0));
     uvs.push_back(glm::vec2(1, 1));
+    uvs.push_back(glm::vec2(0, 0));
+
+    uvs.push_back(glm::vec2(1, 1));
+    uvs.push_back(glm::vec2(1, 0));
+    uvs.push_back(glm::vec2(0, 0));
 
     setupBuffers();
 }

@@ -2,6 +2,8 @@
 #ifndef APPLICATION_H_
 #define APPLICATION_H_
 
+
+#include <vector>
 #include "Shaders/Shader_Program.h"
 #include "EventHandler.h"
 #include "Model.h"
@@ -26,7 +28,7 @@ class Application {
     MasterHUD hud;
     Model model;
     EventHandler eventHandler;
-    Terrain terrain;
+    std::vector<Terrain> terrains;
     Camera camera;
     Player player;
 
