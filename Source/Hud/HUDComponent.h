@@ -24,7 +24,7 @@ class HUDComponent {
     float x, y, width, height;
     glm::vec4 colour;
 
-    std::vector<glm::vec2> vertices;
+    std::vector<glm::vec3> vertices;
 };
 
 

@@ -17,7 +17,7 @@ class MasterHUD {
 
  private:
     Shader::Shader_Program shaderProgram;
-    Shader::Shader_Program simpleShader;
+    Shader::Shader_Program sShader;
     std::vector<HUDComponent> components;
 };
 

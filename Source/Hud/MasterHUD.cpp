@@ -11,19 +11,31 @@
 
 MasterHUD::MasterHUD(std::string vertPath, std::string fragPath, std::string frag2Path)
 : shaderProgram(vertPath, fragPath)
-, simpleShader(vertPath, frag2Path) {
-    Image component = Image(100, 0, 50, 50, "Coin.png");
+, sShader(vertPath, frag2Path) {
+    Image component = Image(500, 5, 50, 50, "Coin.png");
     components.push_back(component);
-    component = Image(0, 0, 50, 50, "menu.png");
+    component = Image(0, 5, 50, 50, "menu.png");
     components.push_back(component);
-    component = Image(200, 0, 50, 50, "Clock.png");
+    component = Image(800, 5, 50, 50, "Clock.png");
     components.push_back(component);
 
-    Rect c = Rect(0, 0, 500, 100, glm::vec4(1.0, 1.0, 1.0, 1.0));
+    Rect c = Rect(0, 0, 1280, 60, glm::vec4(1.0, 1.0, 1.0, 1.0));
     components.push_back(c);
 }
 
 void MasterHUD::render() {
+    sShader.bind();
+
+    for (int i = 0; i < components.size(); i++) {
+        if (components[i].type == 0) {
+            // std::cout << components[i].getColour().x << std::endl;
+            sShader.loadColour(components[i].getColour());
+            components[i].draw();
+        }
+    }
+
+    sShader.unbind();
+    
     shaderProgram.bind();
 
     for (int i = 0; i < components.size(); i++) {
@@ -31,16 +43,4 @@ void MasterHUD::render() {
     }
 
     shaderProgram.unbind();
-
-    simpleShader.bind();
-
-    for (int i = 0; i < components.size(); i++) {
-        if (components[i].type == 0) {
-            // std::cout << components[i].getColour().x << std::endl;
-            simpleShader.loadColour(components[i].getColour());
-            components[i].draw();
-        }
-    }
-
-    simpleShader.unbind();
 }

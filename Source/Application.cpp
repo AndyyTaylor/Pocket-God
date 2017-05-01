@@ -13,7 +13,7 @@ extern std::string PROJECT_PATH;
 
 Application::Application()
 : simpleShader("/Data/Shaders/vert.glsl", "/Data/Shaders/frag.glsl")
-, hud("/Data/Shaders/2dvert.glsl", "/Data/Shaders/2dfragtex.glsl", "/Data/Shaders/2dfragimg.glsl") {
+, hud("/Data/Shaders/2dvert.glsl", "/Data/Shaders/2dfragtex.glsl", "/Data/Shaders/2dfragcol.glsl") {
     for (int y = 0; y < 4; y++) {
         for (int x = 0; x < 4; x++) {
             Terrain t = Terrain(y*800, x*800);

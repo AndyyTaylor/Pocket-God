@@ -14,7 +14,7 @@ Shader_Program::Shader_Program(const std::string &vertexShaderFile,
     m_mvpLocation = glGetUniformLocation(m_programId, "MVP");
     m_mLocation = glGetUniformLocation(m_programId, "M");
     m_vLocation = glGetUniformLocation(m_programId, "V");
-    m_cLocation = glGetUniformLocation(m_programId, "Color");
+    m_cLocation = glGetUniformLocation(m_programId, "Colour");
 }
 
 void Shader_Program::bind() {
