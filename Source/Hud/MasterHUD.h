@@ -10,13 +10,14 @@
 
 class MasterHUD {
  public:
-    MasterHUD(std::string vertPath, std::string fragPath);
+    MasterHUD(std::string vertPath, std::string fragPath, std::string frag2Path);
 
     void render();
     void draw();
 
  private:
     Shader::Shader_Program shaderProgram;
+    Shader::Shader_Program simpleShader;
     std::vector<HUDComponent> components;
 };
 

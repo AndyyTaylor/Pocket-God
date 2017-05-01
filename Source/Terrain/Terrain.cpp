@@ -117,7 +117,7 @@ void Terrain::generateTerrain() {
     std::cout << "MaxX:\t" << maxX << std::endl;
     std::cout << "MinY:\t" << minY << std::endl;
     std::cout << "MaxY:\t" << maxY << std::endl;*/
-    std::cout << vertices.size() / 3 << std::endl;
+    // std::cout << vertices.size() / 3 << std::endl;
     model.loadVertices(vertices, uvs, normals, "imgs/grass4.png");
 
     model.entity.position.x = worldX;

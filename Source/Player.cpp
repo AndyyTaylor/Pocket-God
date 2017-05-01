@@ -27,7 +27,7 @@ void Player::update(float dt, std::vector<Terrain>* terrains) {
         dpos.z += sin(glm::radians(rotation.y)) * speed;
     }
 
-    if (movingUp && (true||isOnGround)) {
+    if (movingUp && isOnGround) {
         dpos.y = jumpheight;
     }
 
@@ -40,7 +40,7 @@ void Player::update(float dt, std::vector<Terrain>* terrains) {
         std::cout << "Index broken" << std::endl;
         index  = 0;
     }
-    std::cout << "Index: " << index << std::endl;
+    // std::cout << "Index: " << index << std::endl;
     Terrain t = (*terrains)[index];
     float minHeight = t.getHeightAt((int) position.x % 800, (int) position.z % 800);
     if (position.y < minHeight) {

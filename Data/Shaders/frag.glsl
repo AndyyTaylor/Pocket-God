@@ -25,8 +25,8 @@ void main()
 	vec3 R = reflect(-l, n);
 	float cosAlpha = clamp(dot(E, R), 0, 1);
 
-    // vec4 ex_Color = texture(tex, ex_UV).rgba;
-    vec4 ex_Color = vec4(0.0, 1.0, 0.0, 1.0);
+    vec4 ex_Color = texture(tex, ex_UV).rgba;
+    // vec4 ex_Color = vec4(0.0, 1.0, 0.0, 1.0);
 
 	vec3 ambientColor = vec3(0.5, 0.5, 0.5) * ex_Color.xyz;
 	frag_Color = vec4(ambientColor, 0.0)  // Ambient lighting

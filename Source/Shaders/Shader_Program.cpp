@@ -14,6 +14,7 @@ Shader_Program::Shader_Program(const std::string &vertexShaderFile,
     m_mvpLocation = glGetUniformLocation(m_programId, "MVP");
     m_mLocation = glGetUniformLocation(m_programId, "M");
     m_vLocation = glGetUniformLocation(m_programId, "V");
+    m_cLocation = glGetUniformLocation(m_programId, "Color");
 }
 
 void Shader_Program::bind() {
@@ -30,5 +31,9 @@ void Shader_Program::loadMVP(const glm::mat4 &matrix,
     glUniformMatrix4fv(m_mvpLocation, 1, GL_FALSE, glm::value_ptr(matrix));
     glUniformMatrix4fv(m_mLocation, 1, GL_FALSE, glm::value_ptr(mmatrix));
     glUniformMatrix4fv(m_vLocation, 1, GL_FALSE, glm::value_ptr(vmatrix));
+}
+
+void Shader_Program::loadColour(const glm::vec4 &colour) {
+    glUniform4f(m_cLocation, colour.x, colour.y, colour.z, colour.w);
 }
 }   // namespace Shader

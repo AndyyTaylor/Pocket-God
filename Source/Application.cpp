@@ -7,10 +7,13 @@
 #include "Entity.h"
 
 #include <chrono>  // NOLINT - <chrono> is unnaproved
+#include <string>
+
+extern std::string PROJECT_PATH;
 
 Application::Application()
 : simpleShader("/Data/Shaders/vert.glsl", "/Data/Shaders/frag.glsl")
-, hud("/Data/Shaders/2dvert.glsl", "/Data/Shaders/2dfrag.glsl") {
+, hud("/Data/Shaders/2dvert.glsl", "/Data/Shaders/2dfragtex.glsl", "/Data/Shaders/2dfragimg.glsl") {
     for (int y = 0; y < 4; y++) {
         for (int x = 0; x < 4; x++) {
             Terrain t = Terrain(y*800, x*800);
@@ -47,7 +50,7 @@ void Application::runMainGameLoop() {
         Display::update();
 
         float fps = 1/delta;
-        std::cout << "FPS2: " << fps << std::endl;
+        // std::cout << "FPS2: " << fps << std::endl;
     }
     Display::close();
 }

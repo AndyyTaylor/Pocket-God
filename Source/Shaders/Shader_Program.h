@@ -15,12 +15,14 @@ class Shader_Program {
     void unbind();
 
     void loadMVP(const glm::mat4 &matrix, const glm::mat4 &mmatrix, const glm::mat4 &vmatrix);
+    void loadColour(const glm::vec4 &colour);
 
  private:
     GLuint m_programId;
     GLuint m_mvpLocation;
     GLuint m_mLocation;
     GLuint m_vLocation;
+    GLuint m_cLocation;
 };
 }   // namespace Shader
 

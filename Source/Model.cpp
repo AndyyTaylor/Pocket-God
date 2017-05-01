@@ -184,7 +184,7 @@ void Model::setupBuffers(std::string filename) {
     glBindBuffer(GL_ARRAY_BUFFER, norm_vbo);
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
-    SDL_Surface* Surface = IMG_Load(("/Data/" + filename).c_str());
+    SDL_Surface* Surface = IMG_Load((PROJECT_PATH + "/Data/" + filename).c_str());
 
     if (Surface == NULL) {
         std::cerr << "Failed to load image" << std::endl;

@@ -14,11 +14,15 @@ class HUDComponent {
 
     void bind() { glBindVertexArray(m_vao); }
     void unbind() { glBindVertexArray(0); }
+    GLuint type;
+
+    glm::vec4 getColour(){ return colour; }
+
  protected:
     GLuint m_vao;
     GLuint TextureID;
-    
     float x, y, width, height;
+    glm::vec4 colour;
 
     std::vector<glm::vec2> vertices;
 };
