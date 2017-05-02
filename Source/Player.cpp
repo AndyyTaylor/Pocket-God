@@ -27,7 +27,7 @@ void Player::update(float dt, std::vector<Terrain>* terrains) {
         dpos.z += sin(glm::radians(rotation.y)) * speed;
     }
 
-    if (movingUp && isOnGround) {
+    if (movingUp && (true||isOnGround)) {
         dpos.y = jumpheight;
     }
 
