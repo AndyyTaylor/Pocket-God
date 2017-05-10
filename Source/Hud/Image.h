@@ -9,7 +9,7 @@
 #include "HUDComponent.h"
 #include "../Glm_common.h"
 
-class Image : public HUDComponent{
+class Image : public HUDComponent {
  public:
     Image(int x2, int y2, int w, int h, std::string filename);
 

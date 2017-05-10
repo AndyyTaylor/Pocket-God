@@ -23,7 +23,7 @@ class Terrain {
 
     void updateDiv(float d);
 
- private:
+ protected:
     SDL_Surface* img;
     int worldX, worldY;
     int maxX, minX, maxY, minY;

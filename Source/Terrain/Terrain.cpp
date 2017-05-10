@@ -15,7 +15,7 @@ extern std::string PROJECT_PATH;
 Terrain::Terrain(int worldX, int worldY)
 : worldX(worldX)
 , worldY(worldY) {
-    generateTerrain();
+
 }
 
 Uint32 get_pixel32(SDL_Surface *surface, int x, int y) {
@@ -52,16 +52,16 @@ float Terrain::getHeight(int x, int y) {
     //std::cout << height << std::endl;
     return height;
 }
-
+/*
 void Terrain::generateTerrain() {
-    /*std::vector<glm::vec3> vertices = {
-        glm::vec3(-1.0, 0.0, 1.0),
-        glm::vec3(1.0, 0.0, 1.0),
-        glm::vec3(-1.0, 0.0, -1.0),
-        glm::vec3(-1.0, 0.0, -1.0),
-        glm::vec3(1.0, 0.0, 1.0),
-        glm::vec3(1.0, 0.0, -1.0)
-    };*/
+    // std::vector<glm::vec3> vertices = {
+    //     glm::vec3(-1.0, 0.0, 1.0),
+    //     glm::vec3(1.0, 0.0, 1.0),
+    //     glm::vec3(-1.0, 0.0, -1.0),
+    //     glm::vec3(-1.0, 0.0, -1.0),
+    //     glm::vec3(1.0, 0.0, 1.0),
+    //     glm::vec3(1.0, 0.0, -1.0)
+    // };
 
     std::vector<glm::vec3> vertices;
     std::vector<glm::vec2> uvs;
@@ -113,17 +113,17 @@ void Terrain::generateTerrain() {
         normals.push_back(N);
     }
 
-    /*std::cout << "MinX:\t" << minX << std::endl;
-    std::cout << "MaxX:\t" << maxX << std::endl;
-    std::cout << "MinY:\t" << minY << std::endl;
-    std::cout << "MaxY:\t" << maxY << std::endl;*/
+    // std::cout << "MinX:\t" << minX << std::endl;
+    // std::cout << "MaxX:\t" << maxX << std::endl;
+    // std::cout << "MinY:\t" << minY << std::endl;
+    // std::cout << "MaxY:\t" << maxY << std::endl;
     // std::cout << vertices.size() / 3 << std::endl;
     model.loadVertices(vertices, uvs, normals, "imgs/grass4.png");
 
     model.entity.position.x = worldX;
     model.entity.position.z = worldY;  // Yeah i fucked up
 }
-
+*/
 float barryCentric(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 pos) {
     float det = (p2.z - p3.z) * (p1.x - p3.x) + (p3.x - p2.x) * (p1.z - p3.z);
 	float l1 = ((p2.z - p3.z) * (pos.x - p3.x) + (p3.x - p2.x) * (pos.y - p3.z)) / det;
@@ -161,5 +161,5 @@ float Terrain::getHeightAt(int x, int z) {
 
 void Terrain::updateDiv(float d) {
     div += d;
-    generateTerrain();
+    // generateTerrain();
 }

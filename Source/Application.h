@@ -7,7 +7,7 @@
 #include "Shaders/Shader_Program.h"
 #include "EventHandler.h"
 #include "Model.h"
-#include "Terrain/Terrain.h"
+#include "Terrain/Passage.h"
 #include "Camera.h"
 #include "Player.h"
 #include "Hud/MasterHUD.h"

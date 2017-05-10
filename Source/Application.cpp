@@ -16,7 +16,7 @@ Application::Application()
 , hud("/Data/Shaders/2dvert.glsl", "/Data/Shaders/2dfragtex.glsl", "/Data/Shaders/2dfragcol.glsl") {
     for (int y = 0; y < 5; y++) {
         for (int x = 0; x < 5; x++) {
-            Terrain t = Terrain(y*800, x*800);
+            Passage t = Passage(y*800, x*800);
             terrains.push_back(t);
         }
     }
