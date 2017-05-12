@@ -20,8 +20,8 @@ MasterHUD::MasterHUD(std::string vertPath, std::string fragPath, std::string fra
     component = Image(800, 5, 50, 50, "Clock.png");
     components.push_back(component);
 
-    Text t = Text(100, 0, 300, 50, "main.png");
-    components.push_back(t);
+    // Text t = Text(100, 0, 300, 50, "main.png");
+    // components.push_back(t);
 
     Rect c = Rect(0, 0, 1280, 60, glm::vec4(1.0, 1.0, 1.0, 1.0));
     components.push_back(c);

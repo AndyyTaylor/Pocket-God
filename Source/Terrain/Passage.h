@@ -9,10 +9,11 @@
 
 class Passage : public Terrain {
  public:
-    Passage(int worldX, int worldY);
+    Passage(int worldX, int worldY, int width, int height, int length);
 
  private:
-    void generateTerrain();
+   void generateTerrain(int width, int height, int length);
+
 };
 
 

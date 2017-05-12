@@ -32,8 +32,11 @@ class Terrain {
     std::vector<float> heights;
 
     void getRGB(SDL_Surface* img, int x, int y, int* r2, int* g2, int* b2);
-    void generateTerrain();
+    void generateTerrain(int width, int height, int length);
     float getHeight(int x, int y);
+    void addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::vec2>* uvs, float x, float y, float z, float w, float h, float l);
+    void addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::vec2>* uvs, float x, float y, float z, float w, float h, float l, std::vector<float> bounds);
+    void setupNormals(std::vector<glm::vec3>* normals, std::vector<glm::vec3> vertices);
 };
 
 

@@ -14,12 +14,7 @@ extern std::string PROJECT_PATH;
 Application::Application()
 : simpleShader("/Data/Shaders/vert.glsl", "/Data/Shaders/frag.glsl")
 , hud("/Data/Shaders/2dvert.glsl", "/Data/Shaders/2dfragtex.glsl", "/Data/Shaders/2dfragcol.glsl") {
-    for (int y = 0; y < 5; y++) {
-        for (int x = 0; x < 5; x++) {
-            Passage t = Passage(y*800, x*800);
-            terrains.push_back(t);
-        }
-    }
+
 }
 
 void Application::runMainGameLoop() {
@@ -29,19 +24,13 @@ void Application::runMainGameLoop() {
         Display::clear();
         simpleShader.bind();
 
-        eventHandler.input(&camera, &player, &terrains);
-        player.update(delta, &terrains);
+
+        eventHandler.input(&camera, &player, terrain.getTerrains());
+        player.update(delta, terrain.getTerrains());
         camera.update((Entity) player);
 
 
-        for (int i = 0; i < terrains.size(); i++) {
-            glm::mat4 m = Maths::createModelMatrix(terrains[i].model.entity);
-            glm::mat4 v = Maths::createViewMatrix(camera);
-            glm::mat4 mvp = Maths::createProjMatrix() * v * m;
-            simpleShader.loadMVP(mvp, m, v);
-
-            terrains[i].model.draw();
-        }
+        terrain.render(&simpleShader, &camera);
 
         simpleShader.unbind();
 

@@ -7,7 +7,7 @@
 #include "Shaders/Shader_Program.h"
 #include "EventHandler.h"
 #include "Model.h"
-#include "Terrain/Passage.h"
+#include "Terrain/MasterTerrain.h"
 #include "Camera.h"
 #include "Player.h"
 #include "Hud/MasterHUD.h"
@@ -28,7 +28,7 @@ class Application {
     MasterHUD hud;
     Model model;
     EventHandler eventHandler;
-    std::vector<Terrain> terrains;
+    MasterTerrain terrain;
     Camera camera;
     Player player;
 

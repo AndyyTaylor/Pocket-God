@@ -16,7 +16,7 @@ class Player : public Entity {
     void update(float dt, std::vector<Terrain>* terrains);
 
  protected:
-    float speed = 150, jumpheight = 230;
+    float speed = 90, jumpheight = 140;
     bool isOnGround = false;
 
     glm::vec3 dpos;
