@@ -12,12 +12,12 @@ void Starting::generateTerrain(int width, int height, int length, std::vector<fl
     std::vector<glm::vec3> normals;
     std::vector<glm::vec2> uvs;
 
-    /*addRectangle(&vertices, &uvs, 0, 0, 0, width, 0, length, bounds);
+    addRectangle(&vertices, &uvs, 0, 0, 0, width, 0, length, bounds);
     addRectangle(&vertices, &uvs, 0, 0, 0, 0, height, length, bounds);
     addRectangle(&vertices, &uvs, width, 0, 0, 0, height, length, bounds);
-    addRectangle(&vertices, &uvs, 0, height, 0, width, 0, length, bounds);*/
-    addRectangle(&vertices, &uvs, 0, 0, 0, 0, height, length, bounds);
+    addRectangle(&vertices, &uvs, 0, height, 0, width, 0, length, bounds);
     addRectangle(&vertices, &uvs, 0, 0, length, width, height, 0, bounds);
+    addRectangle(&vertices, &uvs, 0, 0, 0, width, height, 0, bounds);
 
     setupNormals(&normals, vertices);
 

@@ -212,13 +212,24 @@ void Terrain::addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::ve
                 // Doesn't work for width / height rectangles
                     // Is it possible to keep it with the same code?
                     // Or do I need a separate case
-                vertices->push_back(glm::vec3(x2, y2+div*ymod, z2+div*zmod));
-                vertices->push_back(glm::vec3(x2+div*xmod, y2, z2+div*zmod));
-                vertices->push_back(glm::vec3(x2, y2+div*ymod, z2));
+                if (w > 0 && h > 0) {
+                    vertices->push_back(glm::vec3(x2, y2, z2));
+                    vertices->push_back(glm::vec3(x2+div*xmod, y2, z2));
+                    vertices->push_back(glm::vec3(x2, y2+div*ymod, z2));
 
-                vertices->push_back(glm::vec3(x2+div*xmod, y2, z2+div*zmod));
-                vertices->push_back(glm::vec3(x2+div*xmod, y2, z2));
-                vertices->push_back(glm::vec3(x2, y2+div*ymod, z2));
+                    vertices->push_back(glm::vec3(x2+div*xmod, y2, z2+div*zmod));
+                    vertices->push_back(glm::vec3(x2+div*xmod, y2+div*ymod, z2));
+                    vertices->push_back(glm::vec3(x2, y2+div*ymod, z2));
+                } else {
+                    vertices->push_back(glm::vec3(x2, y2+div*ymod, z2+div*zmod));
+                    vertices->push_back(glm::vec3(x2+div*xmod, y2, z2+div*zmod));
+                    vertices->push_back(glm::vec3(x2, y2+div*ymod, z2));
+
+                    vertices->push_back(glm::vec3(x2+div*xmod, y2, z2+div*zmod));
+                    vertices->push_back(glm::vec3(x2+div*xmod, y2, z2));
+                    vertices->push_back(glm::vec3(x2, y2+div*ymod, z2));
+                }
+
 
                 uvs->push_back(glm::vec2(0, 1));
                 uvs->push_back(glm::vec2(1, 1));
