@@ -10,6 +10,7 @@
 #include "../Shaders/Shader_Program.h"
 
 #include <vector>
+#include "Passage.h"
 
 class MasterTerrain {
  public:
@@ -23,6 +24,9 @@ class MasterTerrain {
 
  private:
     std::vector<Terrain> terrains;
+
+    void genStartingArea();
+    Terrain* genPassage(float worldX, float worldY);
 };
 
 #endif  /* MASTER_TERRAIN */

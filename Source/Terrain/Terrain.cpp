@@ -12,9 +12,12 @@
 
 extern std::string PROJECT_PATH;
 
-Terrain::Terrain(int worldX, int worldY)
+Terrain::Terrain(int worldX, int worldY, float width, float height, float length)
 : worldX(worldX)
-, worldY(worldY) {
+, worldY(worldY)
+, width(width)
+, height(height)
+, length(length) {
 
 }
 
@@ -135,6 +138,7 @@ float barryCentric(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 pos) {
 void Terrain::setupNormals(std::vector<glm::vec3>* normals, std::vector<glm::vec3> vertices) {
     for (int i = 0; i < vertices.size(); i+=3) {
         // std::cout << i << std::endl;
+
         glm::vec3 U = vertices[i+1] - vertices[i];
         glm::vec3 V = vertices[i+2] - vertices[i];
 
@@ -147,6 +151,7 @@ void Terrain::setupNormals(std::vector<glm::vec3>* normals, std::vector<glm::vec
         normals->push_back(N);
         normals->push_back(N);
     }
+
 }
 
 float Terrain::getHeightAt(int x, int z) {

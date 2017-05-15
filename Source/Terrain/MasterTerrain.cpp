@@ -16,22 +16,62 @@ MasterTerrain::MasterTerrain() {
 
 void MasterTerrain::generateDungeon() {
     srand((int) time(0));
+
+    genStartingArea();
+
+    //Starting s = Starting(0, 0, 200, 200, 200);
+}
+
+void MasterTerrain::genStartingArea() {
+    // std::vector<float> bounds;
     int r = rand() % 20;
-    std::cout << r << std::endl;
     if (r > 0){ r = 0; } // Changed depending on how many possibilities I've created
 
-    std::vector<float> bounds;
+    Starting s;
     switch(r) {
         case 0:
-            bounds = {-1, -1, 0, 50, 0, 50};
-            terrains.push_back(Starting(0, 0, 200, 200, 200, bounds));
+        {
+            // bounds = {-1, -1, 0, 50, 0, 50};
+            s = Starting(0, 0, 200, 200, 200);
+
+            s.generateTerrain();
+
+            // s.addAdjTerrain(genPassage(100, 200));
+            Terrain* p = genPassage(0, 0);
+            p->model.entity.rotation = glm::vec3(0, 180, 0);
+            s.addAdjTerrain(p);
+
+            terrains.push_back(s);
             break;
+        }
         default:
-            terrains.push_back(Starting(0, 0, 200, 200, 200, bounds));
+            // terrains.push_back(Starting(0, 0, 200, 200, 200));
             break;
     }
-    //Starting s = Starting(0, 0, 200, 200, 200);
+}
 
+Terrain* MasterTerrain::genPassage(float worldX, float worldY) {
+    int r = rand() % 20;
+    if (r > 0){ r = 0; } // Changed depending on how many possibilities I've created
+
+    Passage p;
+    int index = 0;
+    switch(r) {
+        case 0:
+        {
+            p = Passage(worldX-50, worldY+200, 100, 100, 200);
+
+            p.generateTerrain();
+
+            index = terrains.size();
+            terrains.push_back(p);
+            break;
+        }
+        default:
+            break;
+    }
+
+    return &terrains[index];
 }
 
 void MasterTerrain::render(Shader::Shader_Program* simpleShader, Camera* camera) {

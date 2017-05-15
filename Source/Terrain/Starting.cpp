@@ -2,16 +2,17 @@
 
 #include "Starting.h"
 
-Starting::Starting(int worldX, int worldY, int width, int height, int length, std::vector<float> bounds)
-: Terrain(worldX, worldY) {
-    generateTerrain(width, height, length, bounds);
+Starting::Starting(int worldX, int worldY, int width, int height, int length)
+: Terrain(worldX, worldY, width, height, length) {
+    // generateTerrain(width, height, length, bounds);
 }
 
-void Starting::generateTerrain(int width, int height, int length, std::vector<float> bounds) {
+void Starting::generateTerrain() {
     std::vector<glm::vec3> vertices;
     std::vector<glm::vec3> normals;
     std::vector<glm::vec2> uvs;
 
+    std::vector<float> bounds;
     addRectangle(&vertices, &uvs, 0, 0, 0, width, 0, length, bounds);
     addRectangle(&vertices, &uvs, 0, 0, 0, 0, height, length, bounds);
     addRectangle(&vertices, &uvs, width, 0, 0, 0, height, length, bounds);

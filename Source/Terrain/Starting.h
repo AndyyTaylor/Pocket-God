@@ -10,10 +10,12 @@
 
 class Starting : public Terrain {
  public:
-    Starting(int worldX, int worldY, int width, int height, int length, std::vector<float> bounds);
+    Starting(){};
+    Starting(int worldX, int worldY, int width, int height, int length);
 
+    void generateTerrain();
  private:
-   void generateTerrain(int width, int height, int length, std::vector<float> bounds);
+
 };
 
 

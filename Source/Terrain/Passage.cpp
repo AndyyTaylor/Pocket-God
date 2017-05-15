@@ -3,11 +3,11 @@
 #include "Passage.h"
 
 Passage::Passage(int worldX, int worldY, int width, int height, int length)
-: Terrain(worldX, worldY) {
-    generateTerrain(width, height, length);
+: Terrain(worldX, worldY, width, height, length) {
+    // generateTerrain(width, height, length);
 }
 
-void Passage::generateTerrain(int width, int height, int length) {
+void Passage::generateTerrain() {
     std::vector<glm::vec3> vertices;
     std::vector<glm::vec3> normals;
     std::vector<glm::vec2> uvs;

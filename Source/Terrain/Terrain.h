@@ -13,7 +13,8 @@ class Terrain {
     static const int MAX_HEIGHT = 200;
     static const int MAX_PIXEL_COLOUR = 256*256*256;
 
-    Terrain(int worldX, int worldY);
+    Terrain(){};
+    Terrain(int worldX, int worldY, float width, float height, float length);
 
     float getHeightAt(int x, int z);
 
@@ -22,17 +23,22 @@ class Terrain {
     Model model;  // m_ for privates?
 
     void updateDiv(float d);
+    void addAdjTerrain(Terrain* t) {
+        adjacent.push_back(t);
+    }
 
  protected:
     SDL_Surface* img;
     int worldX, worldY;
     int maxX, minX, maxY, minY;
+    float width, height, length;
     float div = 20;
+
+    std::vector<Terrain*> adjacent;
 
     std::vector<float> heights;
 
     void getRGB(SDL_Surface* img, int x, int y, int* r2, int* g2, int* b2);
-    void generateTerrain(int width, int height, int length);
     float getHeight(int x, int y);
     void addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::vec2>* uvs, float x, float y, float z, float w, float h, float l);
     void addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::vec2>* uvs, float x, float y, float z, float w, float h, float l, std::vector<float> bounds);
