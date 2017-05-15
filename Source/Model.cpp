@@ -42,9 +42,9 @@ std::vector<GLfloat> colors = {
 
 Model::Model()
 {
-	entity.scale = glm::vec3(1.0, 1.0, 1.0);
+	entity.scale = glm::vec3(1, 1.0, 1.0);
 	entity.position = glm::vec3(0.0, -3.0, 3.0);
-	loadModel((PROJECT_PATH + "/Data/cup.obj").c_str());
+	loadModel((PROJECT_PATH + "/Data/robot.obj").c_str());
 	std::cout << (PROJECT_PATH + "/Data/cup.obj").c_str() << std::endl;
 	GLuint pos_vbo;
 	glGenBuffers(1, &pos_vbo);

@@ -5,6 +5,8 @@
 
 #include <string>
 
+// Source/Terrain/Starting.cpp Source/Terrain/MasterTerrain.cpp Source/Terrain/Passage.cpp Source/Hud/Text.cpp Source/Hud/Rect.cpp Source/Hud/Image.cpp Source/Hud/MasterHUD.cpp Source/Hud/HUDComponent.cpp Source/Player.cpp Source/Camera.cpp Source/Terrain/Terrain.cpp Source/Application.cpp Source/Display.cpp Source/EventHandler.cpp Source/Model.cpp Source/Shaders/Shader_Loader.cpp Source/Shaders/Shader_Program.cpp Source/Math/Matrix.cpp -lSDL2_image -lSDL2 -lglew -framework Opengl -std=c++11
+
 std::string PROJECT_PATH;
 
 int main(int argc, char* argv[])
