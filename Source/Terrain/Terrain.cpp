@@ -12,9 +12,10 @@
 
 extern std::string PROJECT_PATH;
 
-Terrain::Terrain(int worldX, int worldY, float width, float height, float length)
+Terrain::Terrain(int worldX, int worldY, int worldZ, float width, float height, float length)
 : worldX(worldX)
 , worldY(worldY)
+, worldZ(worldZ)
 , width(width)
 , height(height)
 , length(length) {
@@ -185,12 +186,12 @@ void Terrain::updateDiv(float d) {
     // generateTerrain();
 }
 
-void Terrain::addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::vec2>* uvs, float x, float y, float z, float w, float h, float l) {
+void Terrain::addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::vec2>* uvs, float x, float y, float z, float w, float h, float l, float tw, float th, float tl) {
     std::vector<float> bounds;
-    addRectangle(vertices, uvs, x, y, z, w, h, l, bounds);
+    addRectangle(vertices, uvs, x, y, z, w, h, l, tw, th, tl, bounds);
 }
 
-void Terrain::addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::vec2>* uvs, float x, float y, float z, float w, float h, float l, std::vector<float> bounds) {
+void Terrain::addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::vec2>* uvs, float x, float y, float z, float w, float h, float l, float tw, float th, float tl, std::vector<float> bounds) {
     float div = 30;
     int xmod = fmin(w/div, 1);
     int ymod = fmin(h/div, 1);
@@ -218,21 +219,21 @@ void Terrain::addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::ve
                     // Is it possible to keep it with the same code?
                     // Or do I need a separate case
                 if (w > 0 && h > 0) {
-                    vertices->push_back(glm::vec3(x2, y2, z2));
-                    vertices->push_back(glm::vec3(x2+div*xmod, y2, z2));
-                    vertices->push_back(glm::vec3(x2, y2+div*ymod, z2));
+                    vertices->push_back(glm::vec3(x2 - tw/2, y2 - th/2, z2 - tl/2));
+                    vertices->push_back(glm::vec3(x2+div*xmod - tw/2, y2 - th/2, z2 - tl/2));
+                    vertices->push_back(glm::vec3(x2 - tw/2, y2+div*ymod - th/2, z2 - tl/2));
 
-                    vertices->push_back(glm::vec3(x2+div*xmod, y2, z2+div*zmod));
-                    vertices->push_back(glm::vec3(x2+div*xmod, y2+div*ymod, z2));
-                    vertices->push_back(glm::vec3(x2, y2+div*ymod, z2));
+                    vertices->push_back(glm::vec3(x2+div*xmod - tw/2, y2 - th/2, z2+div*zmod - tl/2));
+                    vertices->push_back(glm::vec3(x2+div*xmod - tw/2, y2+div*ymod - th/2, z2 - tl/2));
+                    vertices->push_back(glm::vec3(x2 - tw/2, y2+div*ymod - th/2, z2 - tl/2));
                 } else {
-                    vertices->push_back(glm::vec3(x2, y2+div*ymod, z2+div*zmod));
-                    vertices->push_back(glm::vec3(x2+div*xmod, y2, z2+div*zmod));
-                    vertices->push_back(glm::vec3(x2, y2+div*ymod, z2));
+                    vertices->push_back(glm::vec3(x2 - tw/2, y2+div*ymod - th/2, z2+div*zmod - tl/2));
+                    vertices->push_back(glm::vec3(x2+div*xmod - tw/2, y2 - th/2, z2+div*zmod - tl/2));
+                    vertices->push_back(glm::vec3(x2 - tw/2, y2+div*ymod - th/2, z2 - tl/2));
 
-                    vertices->push_back(glm::vec3(x2+div*xmod, y2, z2+div*zmod));
-                    vertices->push_back(glm::vec3(x2+div*xmod, y2, z2));
-                    vertices->push_back(glm::vec3(x2, y2+div*ymod, z2));
+                    vertices->push_back(glm::vec3(x2+div*xmod - tw/2, y2 - th/2, z2+div*zmod - tl/2));
+                    vertices->push_back(glm::vec3(x2+div*xmod - tw/2, y2 - th/2, z2 - tl/2));
+                    vertices->push_back(glm::vec3(x2 - tw/2, y2+div*ymod - th/2, z2 - tl/2));
                 }
 
 

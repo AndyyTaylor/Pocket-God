@@ -10,7 +10,7 @@
 class Passage : public Terrain {
  public:
     Passage(){};
-    Passage(int worldX, int worldY, int width, int height, int length);
+    Passage(int worldX, int worldY, int worldZ, int width, int height, int length);
 
     void generateTerrain();
 

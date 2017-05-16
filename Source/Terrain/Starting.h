@@ -11,7 +11,7 @@
 class Starting : public Terrain {
  public:
     Starting(){};
-    Starting(int worldX, int worldY, int width, int height, int length);
+    Starting(int worldX, int worldY, int worldZ, int width, int height, int length);
 
     void generateTerrain();
  private:

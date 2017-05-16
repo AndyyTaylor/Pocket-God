@@ -28,18 +28,28 @@ void MasterTerrain::genStartingArea() {
     if (r > 0){ r = 0; } // Changed depending on how many possibilities I've created
 
     Starting s;
+    float width, height, length;
     switch(r) {
         case 0:
         {
             // bounds = {-1, -1, 0, 50, 0, 50};
-            s = Starting(0, 0, 200, 200, 200);
+            width = 200; height = 200; length = 200;
+            s = Starting(0, 0, 0, width, height, length);
 
             s.generateTerrain();
 
             // s.addAdjTerrain(genPassage(100, 200));
-            Terrain* p = genPassage(0, 0);
-            p->model.entity.rotation = glm::vec3(0, 180, 0);
+            s.addAdjTerrain(genPassage(0, -height/2, length/2, 1, 1, 1));
+            Terrain* p = genPassage(0, -height/2, -length/2, 1, 1, -1);
+            p->model.entity.rotation.y = 180;
             s.addAdjTerrain(p);
+
+            p = genPassage(width/2, -height/2, 0, 1, 1, 1);
+            p->model.entity.rotation.y = 90;
+            s.addAdjTerrain(p);
+
+            // p = genPassage(0, 0);
+            // p->model.entity.rotation = glm::vec3(0, 90, 0);
 
             terrains.push_back(s);
             break;
@@ -50,16 +60,18 @@ void MasterTerrain::genStartingArea() {
     }
 }
 
-Terrain* MasterTerrain::genPassage(float worldX, float worldY) {
+Terrain* MasterTerrain::genPassage(float worldX, float worldY, float worldZ, int xmod, int ymod, int zmod) {
     int r = rand() % 20;
     if (r > 0){ r = 0; } // Changed depending on how many possibilities I've created
 
     Passage p;
     int index = 0;
+    float width, height, length;
     switch(r) {
         case 0:
         {
-            p = Passage(worldX-50, worldY+200, 100, 100, 200);
+            width = 100; height = 100; length = 500;
+            p = Passage(worldX+xmod*width/2, worldY+height/2*ymod, worldZ+zmod*length/2, width, height, length);
 
             p.generateTerrain();
 

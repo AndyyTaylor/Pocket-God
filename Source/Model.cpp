@@ -54,7 +54,7 @@ Model::Model() {
 
 void Model::draw() {
     bind();
-    // entity.rotation.z += 1;
+    // entity.rotation.y += 1;
     glBindTexture(GL_TEXTURE_2D, TextureID);
     glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 

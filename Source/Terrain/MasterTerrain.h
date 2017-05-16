@@ -26,7 +26,7 @@ class MasterTerrain {
     std::vector<Terrain> terrains;
 
     void genStartingArea();
-    Terrain* genPassage(float worldX, float worldY);
+    Terrain* genPassage(float worldX, float worldY, float worldZ, int xmod, int ymod, int zmod);
 };
 
 #endif  /* MASTER_TERRAIN */

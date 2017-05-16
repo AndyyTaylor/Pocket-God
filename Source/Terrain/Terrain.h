@@ -14,7 +14,7 @@ class Terrain {
     static const int MAX_PIXEL_COLOUR = 256*256*256;
 
     Terrain(){};
-    Terrain(int worldX, int worldY, float width, float height, float length);
+    Terrain(int worldX, int worldY, int worldZ, float width, float height, float length);
 
     float getHeightAt(int x, int z);
 
@@ -29,7 +29,7 @@ class Terrain {
 
  protected:
     SDL_Surface* img;
-    int worldX, worldY;
+    int worldX, worldY, worldZ;
     int maxX, minX, maxY, minY;
     float width, height, length;
     float div = 20;
@@ -40,8 +40,8 @@ class Terrain {
 
     void getRGB(SDL_Surface* img, int x, int y, int* r2, int* g2, int* b2);
     float getHeight(int x, int y);
-    void addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::vec2>* uvs, float x, float y, float z, float w, float h, float l);
-    void addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::vec2>* uvs, float x, float y, float z, float w, float h, float l, std::vector<float> bounds);
+    void addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::vec2>* uvs, float x, float y, float z, float w, float h, float l, float tw, float th, float tl);
+    void addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::vec2>* uvs, float x, float y, float z, float w, float h, float l, float tw, float th, float tl, std::vector<float> bounds);
     void setupNormals(std::vector<glm::vec3>* normals, std::vector<glm::vec3> vertices);
 };
 
