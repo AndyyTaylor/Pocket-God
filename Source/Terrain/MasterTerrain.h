@@ -26,7 +26,17 @@ class MasterTerrain {
     std::vector<Terrain> terrains;
 
     void genStartingArea();
-    Terrain* genPassage(float worldX, float worldY, float worldZ, int xmod, int ymod, int zmod, float rot);
+    Terrain* genChamber(float worldX, float worldY, float worldZ, float rot, int depth);
+    Terrain* genPassage(float worldX, float worldY, float worldZ, float rot, int depth);
+
+    float normang(float ang);
+    
+    void getModifiers(int* xmod, int* ymod, int* zmod, float rot);
+    void getDimensions(float* width, float* height, float* length, float rot);
+    void getModifiers2(int* xmod, int* ymod, int* zmod, float rot);
+    void getModifiers3(int* xmod, int* ymod, int* zmod, float rot);
+
+    int MAXDEPTH = 5;
 };
 
 #endif  /* MASTER_TERRAIN */

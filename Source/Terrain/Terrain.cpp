@@ -152,7 +152,6 @@ void Terrain::setupNormals(std::vector<glm::vec3>* normals, std::vector<glm::vec
         normals->push_back(N);
         normals->push_back(N);
     }
-
 }
 
 float Terrain::getHeightAt(int x, int z) {
