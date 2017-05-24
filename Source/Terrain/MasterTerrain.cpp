@@ -27,34 +27,49 @@ void MasterTerrain::generateDungeon() {
 
 void MasterTerrain::genStartingArea() {
     // std::vector<float> bounds;
-    int r = rand() % 20;
-    if (r > 0){ r = 0; } // Changed depending on how many possibilities I've created
+    int r = rand() % 2;
+    if (r > 1){ r = 0; } // Changed depending on how many possibilities I've created
 
     Starting s;
     float width, height, length;
+    int exits[4];
     switch(r) {
         case 0:
         {
             // bounds = {-1, -1, 0, 50, 0, 50};
-            width = 200; height = 200; length = 200;
-            s = Starting(0, 0, 0, width, height, length);
-
-            // s.addAdjTerrain(genPassage(100, 200));
-            s.addAdjTerrain(genPassage(0, -height/2, length/2, 0, 0));
-            s.addAdjTerrain(genPassage(0, -height/2, -length/2, 180, 0));
-            //s.addAdjTerrain(genPassage(width/2, -height/2, 0, 90, 0));
-            //s.addAdjTerrain(genPassage(-width/2, -height/2, 0, 270, 0));
-            // p->model.entity.rotation = glm::vec3(0, 90, 0);
-
-            s.generateTerrain();
-
-            terrains.push_back(s);
+            width = 200;
+            height = 200;
+            length = 200;
+            
+            for (int i = 0; i < 4; i++) {
+                exits[i] = 1;
+            }
+            
             break;
+        }
+        case 1:
+        {
+            width = 200;
+            height = 200;
+            length = 200;
+            
+            exits[1] = 1;
+            exits[0] = 2;
+            exits[2] = 2;
         }
         default:
             // terrains.push_back(Starting(0, 0, 200, 200, 200));
             break;
     }
+    s = Starting(0, 0, 0, width, height, length);
+    
+    if (exits[0] == 1) s.addAdjTerrain(genPassage(0, -height/2, length/2, 0, 0));
+    if (exits[1] == 1) s.addAdjTerrain(genPassage(0, -height/2, -length/2, 180, 0));
+    if (exits[2] == 1) s.addAdjTerrain(genPassage(width/2, -height/2, 0, 90, 0));
+    if (exits[3] == 1) s.addAdjTerrain(genPassage(-width/2, -height/2, 0, 270, 0));
+    
+    s.generateTerrain();
+    terrains.push_back(s);
 }
 
 Terrain* MasterTerrain::genChamber(float worldX, float worldY, float worldZ, float rot, int depth) {
@@ -62,8 +77,8 @@ Terrain* MasterTerrain::genChamber(float worldX, float worldY, float worldZ, flo
     depth += 1;
     if (depth > MAXDEPTH){ return nullptr; }
     std::cout << "genChamber" << std::endl;
-    int r = rand() % 20;
-    if (r > 0){ r = 0; } // Changed depending on how many possibilities I've created
+    int r = rand() % 4;
+    if (r > 3){ r = 0; } // Changed depending on how many possibilities I've created
 
     Chamber s;
     int index = 0;
@@ -71,49 +86,73 @@ Terrain* MasterTerrain::genChamber(float worldX, float worldY, float worldZ, flo
     switch(r) {
         case 0:
         {
-            // bounds = {-1, -1, 0, 50, 0, 50};
-            width = 200; height = 200; length = 300;
-            double xoff, yoff, zoff;
-            int xmod, ymod, zmod;
-            getModifiers(&xmod, &ymod, &zmod, rot);
-            
-            if (rot == 0 || rot == 180) {
-                xoff = xmod*width/2;
-                yoff = height/2*ymod;
-                zoff = zmod*length/2;
-            } else if (rot == 90 || rot == 270) {
-                xoff = xmod*length/2;
-                yoff = height/2*ymod;
-                zoff = zmod*width/2;
-            }
-            
-            s = Chamber(worldX+xoff, worldY+height, worldZ+zoff, width, height, length);
-            s.model.entity.rotation.y = rot;
-
-            s.addAdjTerrain(genPassage(worldX+xoff*2, worldY+yoff, worldZ+zoff*2, rot, depth));
-            
-            int xmod2, ymod2, zmod2;
-            int xmod3, ymod3, zmod3;
-            getModifiers2(&xmod3, &ymod3, &zmod3, normang(rot));
-            getModifiers2(&xmod2, &ymod2, &zmod2, normang(rot+90));
-            float width2 = width, height2 = height, length2 = length;
-            getDimensions(&width2, &height2, &length2, normang(rot));
-            s.addAdjTerrain(genPassage(worldX+width2/2*xmod2*xmod3, worldY+height2/2*ymod2*ymod3, worldZ+length2/2*zmod2*zmod3, normang(rot+90), depth));
-            
-            getModifiers2(&xmod3, &ymod3, &zmod3, normang(rot));
-            getModifiers2(&xmod2, &ymod2, &zmod2, normang(rot-90));
-            s.addAdjTerrain(genPassage(worldX+width2/2*xmod2*xmod3, worldY+height2/2*ymod2*ymod3, worldZ+length2/2*zmod2*zmod3, normang(rot-90), depth));
-
-            s.generateTerrain();
-
-            index = terrains.size();
-            terrains.push_back(s);
+            width = 200;
+            height = 200;
+            length = 300;
+            break;
+        }
+        case 1:
+        {
+            width = 100;
+            height = 200;
+            length = 100;
+            break;
+        }
+        case 2:
+        {
+            width = 300;
+            height = 200;
+            length = 300;
+            break;
+        }
+        case 3:
+        {
+            width = 600;
+            height = 200;
+            length = 200;
             break;
         }
         default:
             // terrains.push_back(Starting(0, 0, 200, 200, 200));
             break;
     }
+    
+    double xoff, yoff, zoff;
+    int xmod, ymod, zmod;
+    getModifiers(&xmod, &ymod, &zmod, rot);
+    
+    if (rot == 0 || rot == 180) {
+        xoff = xmod*width/2;
+        yoff = height/2*ymod;
+        zoff = zmod*length/2;
+    } else if (rot == 90 || rot == 270) {
+        xoff = xmod*length/2;
+        yoff = height/2*ymod;
+        zoff = zmod*width/2;
+    }
+    
+    s = Chamber(worldX+xoff, worldY+height, worldZ+zoff, width, height, length);
+    s.model.entity.rotation.y = rot;
+
+    s.addAdjTerrain(genPassage(worldX+xoff*2, worldY+yoff, worldZ+zoff*2, rot, depth));
+    
+    int xmod2, ymod2, zmod2;
+    int xmod3, ymod3, zmod3;
+    float width2 = width, height2 = height, length2 = length;
+    getDimensions(&width2, &height2, &length2, normang(rot));
+    
+    getModifiers2(&xmod3, &ymod3, &zmod3, normang(rot));
+    getModifiers2(&xmod2, &ymod2, &zmod2, normang(rot+90));
+    s.addAdjTerrain(genPassage(worldX+width2/2*xmod2*xmod3, worldY+height2/2*ymod2*ymod3, worldZ+length2/2*zmod2*zmod3, normang(rot+90), depth));
+    
+    getModifiers2(&xmod3, &ymod3, &zmod3, normang(rot));
+    getModifiers2(&xmod2, &ymod2, &zmod2, normang(rot-90));
+    s.addAdjTerrain(genPassage(worldX+width2/2*xmod2*xmod3, worldY+height2/2*ymod2*ymod3, worldZ+length2/2*zmod2*zmod3, normang(rot-90), depth));
+
+    s.generateTerrain();
+
+    index = terrains.size();
+    terrains.push_back(s);
 
     return &terrains[index];
 }

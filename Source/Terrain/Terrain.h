@@ -23,9 +23,12 @@ class Terrain {
     Model model;  // m_ for privates?
 
     void updateDiv(float d);
+    void generateBounds(std::vector<glm::vec3> vertices);
     void addAdjTerrain(Terrain* t) {
         adjacent.push_back(t);
     }
+    
+    std::vector<float> self_bounds;
 
  protected:
     SDL_Surface* img;
@@ -35,7 +38,6 @@ class Terrain {
     float div = 20;
 
     std::vector<Terrain*> adjacent;
-
     std::vector<float> heights;
 
     void getRGB(SDL_Surface* img, int x, int y, int* r2, int* g2, int* b2);

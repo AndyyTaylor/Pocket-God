@@ -36,7 +36,7 @@ class MasterTerrain {
     void getModifiers2(int* xmod, int* ymod, int* zmod, float rot);
     void getModifiers3(int* xmod, int* ymod, int* zmod, float rot);
 
-    int MAXDEPTH = 5;
+    int MAXDEPTH = 4;
 };
 
 #endif  /* MASTER_TERRAIN */

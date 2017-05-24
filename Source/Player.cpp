@@ -42,7 +42,8 @@ void Player::update(float dt, std::vector<Terrain>* terrains) {
     }
     // std::cout << "Index: " << index << std::endl;
     Terrain t = (*terrains)[index];
-    float minHeight = t.getHeightAt((int) position.x % 800, (int) position.z % 800);
+    // float minHeight = t.getHeightAt((int) position.x % 800, (int) position.z % 800);
+    float minHeight = -100;
     if (position.y < minHeight) {
         position.y = minHeight;
         isOnGround = true;

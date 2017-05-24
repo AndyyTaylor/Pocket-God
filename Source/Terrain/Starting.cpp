@@ -13,6 +13,10 @@ void Starting::generateTerrain() {
     std::vector<glm::vec2> uvs;
 
     std::vector<float> bounds;
+    for (int i = 0; i < adjacent.size(); i++) {
+        // bounds.insert(bounds.end(), adjacent[i]->self_bounds.begin(), adjacent[i]->self_bounds.end());
+    }
+    
     addRectangle(&vertices, &uvs, 0, 0, 0, width, 0, length, width, height, length, bounds);
     addRectangle(&vertices, &uvs, 0, 0, 0, 0, height, length, width, height, length, bounds);
     addRectangle(&vertices, &uvs, width, 0, 0, 0, height, length, width, height, length, bounds);

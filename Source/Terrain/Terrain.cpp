@@ -7,6 +7,7 @@
 #include <GL/glew.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL.h>
+#include "../Math/Matrix.h"
 
 #include "../Model.h"
 
@@ -190,6 +191,24 @@ void Terrain::addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::ve
     addRectangle(vertices, uvs, x, y, z, w, h, l, tw, th, tl, bounds);
 }
 
+void Terrain::generateBounds(std::vector<glm::vec3> vertices) {
+    for (int i = 0; i < 6; i++) { self_bounds.push_back(0); }
+    
+    glm::mat4 m = Maths::createModelMatrix(model.entity);
+    
+    
+    for (int i = 0; i < vertices.size(); i++) {
+        glm::vec3 vert = m * glm::vec4(vertices[i], 1.0);
+        
+        self_bounds[0] = fmin(vert.x, self_bounds[0]);
+        self_bounds[1] = fmax(vert.x, self_bounds[1]);
+        self_bounds[2] = fmin(vert.y + height/2, self_bounds[2]);
+        self_bounds[3] = fmax(vert.y + height/2, self_bounds[3]);
+        self_bounds[4] = fmin(vert.z, self_bounds[4]);
+        self_bounds[5] = fmax(vert.z, self_bounds[5]);
+    }
+}
+
 void Terrain::addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::vec2>* uvs, float x, float y, float z, float w, float h, float l, float tw, float th, float tl, std::vector<float> bounds) {
     float div = 30;
     int xmod = fmin(w/div, 1);
@@ -201,38 +220,43 @@ void Terrain::addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::ve
                 float x2 = x + dx*(div);
                 float y2 = y + dy*(div);
                 float z2 = z + dz*(div);
-
+                
                 bool skip = false;
                 for (int b = 0; b < bounds.size() / 6; b++) {
-                    if ((bounds[b+0] == -1 || (bounds[b+0] < x2 && x2 < bounds[b+1]))
+                    if ((bounds[b+0] == -1 || (bounds[b+0] < x2  - tw/2 && x2 - tw/2 < bounds[b+1]))
                         && (bounds[b+2] == -1 || (bounds[b+2] < y2 && y2 < bounds[b+3]))
-                        && (bounds[b+4] == -1 || (bounds[b+4] < z2 && z2 < bounds[b+5]))
+                        && (bounds[b+4] == -1 || (bounds[b+4] < z2 - tl/2 && z2 - tl/2 < bounds[b+5]))
                     ) {
                         skip = true;
                     }
                 }
+                
                 if (skip) continue;
 
+                
+                float bigX = fmin(x2+div*xmod, x+tw);
+                float bigY = fmin(y2+div*ymod, y+th);
+                float bigZ = fmin(z2+div*zmod, z+tl);
 
                 // Doesn't work for width / height rectangles
                     // Is it possible to keep it with the same code?
                     // Or do I need a separate case
                 if (w > 0 && h > 0) {
                     vertices->push_back(glm::vec3(x2 - tw/2, y2 - th/2, z2 - tl/2));
-                    vertices->push_back(glm::vec3(x2+div*xmod - tw/2, y2 - th/2, z2 - tl/2));
-                    vertices->push_back(glm::vec3(x2 - tw/2, y2+div*ymod - th/2, z2 - tl/2));
+                    vertices->push_back(glm::vec3(bigX - tw/2, y2 - th/2, z2 - tl/2));
+                    vertices->push_back(glm::vec3(x2 - tw/2, bigY - th/2, z2 - tl/2));
 
-                    vertices->push_back(glm::vec3(x2+div*xmod - tw/2, y2 - th/2, z2+div*zmod - tl/2));
-                    vertices->push_back(glm::vec3(x2+div*xmod - tw/2, y2+div*ymod - th/2, z2 - tl/2));
-                    vertices->push_back(glm::vec3(x2 - tw/2, y2+div*ymod - th/2, z2 - tl/2));
+                    vertices->push_back(glm::vec3(bigX - tw/2, y2 - th/2, bigZ - tl/2));
+                    vertices->push_back(glm::vec3(bigX - tw/2, bigY - th/2, z2 - tl/2));
+                    vertices->push_back(glm::vec3(x2 - tw/2, bigY - th/2, z2 - tl/2));
                 } else {
-                    vertices->push_back(glm::vec3(x2 - tw/2, y2+div*ymod - th/2, z2+div*zmod - tl/2));
-                    vertices->push_back(glm::vec3(x2+div*xmod - tw/2, y2 - th/2, z2+div*zmod - tl/2));
-                    vertices->push_back(glm::vec3(x2 - tw/2, y2+div*ymod - th/2, z2 - tl/2));
+                    vertices->push_back(glm::vec3(x2 - tw/2, bigY - th/2, bigZ - tl/2));
+                    vertices->push_back(glm::vec3(bigX - tw/2, y2 - th/2, bigZ - tl/2));
+                    vertices->push_back(glm::vec3(x2 - tw/2, bigY - th/2, z2 - tl/2));
 
-                    vertices->push_back(glm::vec3(x2+div*xmod - tw/2, y2 - th/2, z2+div*zmod - tl/2));
-                    vertices->push_back(glm::vec3(x2+div*xmod - tw/2, y2 - th/2, z2 - tl/2));
-                    vertices->push_back(glm::vec3(x2 - tw/2, y2+div*ymod - th/2, z2 - tl/2));
+                    vertices->push_back(glm::vec3(bigX - tw/2, y2 - th/2, bigZ - tl/2));
+                    vertices->push_back(glm::vec3(bigX - tw/2, y2 - th/2, z2 - tl/2));
+                    vertices->push_back(glm::vec3(x2 - tw/2, bigY - th/2, z2 - tl/2));
                 }
 
 
@@ -246,4 +270,5 @@ void Terrain::addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::ve
             }
         }
     }
+    generateBounds(*vertices);
 }
