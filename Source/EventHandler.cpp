@@ -8,7 +8,7 @@
 
 #include "Display.h"
 #include "Camera.h"
-#include "Player.h"
+#include "GameObjects/Player.h"
 #include "Terrain/Terrain.h"
 
 EventHandler::EventHandler() {

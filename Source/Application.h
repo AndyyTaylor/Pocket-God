@@ -9,7 +9,8 @@
 #include "Model.h"
 #include "Terrain/Terrain.h"
 #include "Camera.h"
-#include "Player.h"
+#include "GameObjects/Player.h"
+#include "GameObjects/NPC.h"
 #include "Hud/MasterHUD.h"
 
 #include <chrono>  // NOLINT - <chrono> is unapproved
@@ -29,6 +30,7 @@ class Application {
     Model model;
     EventHandler eventHandler;
     std::vector<Terrain> terrains;
+    std::vector<NPC> npcs;
     Camera camera;
     Player player;
 
