@@ -5,6 +5,7 @@
 #include "../Model.h"
 #include <SDL2/SDL.h>
 #include <vector>
+#include <iostream>
 
 class Terrain {
  public:
@@ -24,7 +25,10 @@ class Terrain {
 
     void updateDiv(float d);
     void generateBounds(std::vector<glm::vec3> vertices);
-    void addAdjTerrain(Terrain* t) {
+    void addAdjTerrain(Terrain t) {
+        std::cout << "Adding" << std::endl;
+        std::cout << t.minX << std::endl;
+        std::cout << "Done" << std::endl;
         adjacent.push_back(t);
     }
     
@@ -37,7 +41,7 @@ class Terrain {
     float width, height, length;
     float div = 20;
 
-    std::vector<Terrain*> adjacent;
+    std::vector<Terrain> adjacent;
     std::vector<float> heights;
 
     void getRGB(SDL_Surface* img, int x, int y, int* r2, int* g2, int* b2);

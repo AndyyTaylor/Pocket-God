@@ -26,8 +26,8 @@ class MasterTerrain {
     std::vector<Terrain> terrains;
 
     void genStartingArea();
-    Terrain* genChamber(float worldX, float worldY, float worldZ, float rot, int depth);
-    Terrain* genPassage(float worldX, float worldY, float worldZ, float rot, int depth);
+    Terrain genChamber(float worldX, float worldY, float worldZ, float rot, int depth);
+    Terrain genPassage(float worldX, float worldY, float worldZ, float rot, int depth);
 
     float normang(float ang);
     

@@ -196,14 +196,13 @@ void Terrain::generateBounds(std::vector<glm::vec3> vertices) {
     
     glm::mat4 m = Maths::createModelMatrix(model.entity);
     
-    
     for (int i = 0; i < vertices.size(); i++) {
         glm::vec3 vert = m * glm::vec4(vertices[i], 1.0);
         
         self_bounds[0] = fmin(vert.x, self_bounds[0]);
         self_bounds[1] = fmax(vert.x, self_bounds[1]);
-        self_bounds[2] = fmin(vert.y + height/2, self_bounds[2]);
-        self_bounds[3] = fmax(vert.y + height/2, self_bounds[3]);
+        self_bounds[2] = fmin(vert.y, self_bounds[2]);
+        self_bounds[3] = fmax(vert.y, self_bounds[3]);
         self_bounds[4] = fmin(vert.z, self_bounds[4]);
         self_bounds[5] = fmax(vert.z, self_bounds[5]);
     }
@@ -220,19 +219,6 @@ void Terrain::addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::ve
                 float x2 = x + dx*(div);
                 float y2 = y + dy*(div);
                 float z2 = z + dz*(div);
-                
-                bool skip = false;
-                for (int b = 0; b < bounds.size() / 6; b++) {
-                    if ((bounds[b+0] == -1 || (bounds[b+0] < x2  - tw/2 && x2 - tw/2 < bounds[b+1]))
-                        && (bounds[b+2] == -1 || (bounds[b+2] < y2 && y2 < bounds[b+3]))
-                        && (bounds[b+4] == -1 || (bounds[b+4] < z2 - tl/2 && z2 - tl/2 < bounds[b+5]))
-                    ) {
-                        skip = true;
-                    }
-                }
-                
-                if (skip) continue;
-
                 
                 float bigX = fmin(x2+div*xmod, x+tw);
                 float bigY = fmin(y2+div*ymod, y+th);
@@ -258,8 +244,22 @@ void Terrain::addRectangle(std::vector<glm::vec3>* vertices, std::vector<glm::ve
                     vertices->push_back(glm::vec3(bigX - tw/2, y2 - th/2, z2 - tl/2));
                     vertices->push_back(glm::vec3(x2 - tw/2, bigY - th/2, z2 - tl/2));
                 }
-
-
+                
+                std::vector<glm::vec3> bverts = *vertices;
+                for (int i = 0; i < 6; i++) {
+                    glm::vec3 v = Maths::createModelMatrix(model.entity) * glm::vec4(bverts[bverts.size()-1-i], 1);
+                    for (int b = 0; b < bounds.size() / 6; b++) {
+                        if ((bounds[b+0] == -1 || (bounds[b+0] < v.x && v.x < bounds[b+1]))
+                            && (bounds[b+2] == -1 || (bounds[b+2] < v.y && v.y < bounds[b+3]))
+                            && (bounds[b+4] == -1 || (bounds[b+4] < v.z && v.z < bounds[b+5]))
+                        ) {
+                            std::cout << "skip him" << std::endl;
+                            for (int l = 0; l < 6; l++) vertices->pop_back(); // Pop the square
+                            continue;
+                        }
+                    }
+                }
+            
                 uvs->push_back(glm::vec2(0, 1));
                 uvs->push_back(glm::vec2(1, 1));
                 uvs->push_back(glm::vec2(0, 0));

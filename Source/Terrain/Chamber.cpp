@@ -11,11 +11,18 @@ void Chamber::generateTerrain() {
     std::vector<glm::vec3> vertices;
     std::vector<glm::vec3> normals;
     std::vector<glm::vec2> uvs;
-
+    
+    std::cout << adjacent.size() << std::endl;
     std::vector<float> bounds;
     for (int i = 0; i < adjacent.size(); i++) {
-        // bounds.insert(bounds.end(), adjacent[i]->self_bounds.begin(), adjacent[i]->self_bounds.end());
+        std::cout << adjacent[i].self_bounds.size() << std::endl;
+        std::cout << "2" << std::endl;
+        for (int l = 0; l < adjacent[i].self_bounds.size(); l++) {
+            std::cout << "Add 1" << std::endl;
+            bounds.push_back(adjacent[i].self_bounds[l]);
+        }
     }
+    std::cout << "Bounds: " << bounds.size() << std::endl;
     
     addRectangle(&vertices, &uvs, 0, 0, 0, width, 0, length, width, height, length, bounds);
     addRectangle(&vertices, &uvs, 0, 0, 0, 0, height, length, width, height, length, bounds);
