@@ -20,6 +20,11 @@ Application::Application()
             terrains.push_back(t);
         }
     }
+    
+    NPC n = NPC(200, 0, 200);
+    npcs.push_back(n);
+    
+    getDelta();
 }
 
 void Application::runMainGameLoop() {
@@ -32,7 +37,9 @@ void Application::runMainGameLoop() {
         eventHandler.input(&camera, &player, &terrains);
         player.update(delta, &terrains);
         camera.update((Entity) player);
-
+        for (int i = 0; i < npcs.size(); i++) {
+            npcs[i].update(delta, &terrains);
+        }
 
         for (int i = 0; i < terrains.size(); i++) {
             glm::mat4 m = Maths::createModelMatrix(terrains[i].model.entity);
@@ -41,6 +48,15 @@ void Application::runMainGameLoop() {
             simpleShader.loadMVP(mvp, m, v);
 
             terrains[i].model.draw();
+        }
+        
+        for (int i = 0; i < npcs.size(); i++) {
+            glm::mat4 m = Maths::createModelMatrix(npcs[i]);
+            glm::mat4 v = Maths::createViewMatrix(camera);
+            glm::mat4 mvp = Maths::createProjMatrix() * v * m;
+            simpleShader.loadMVP(mvp, m, v);
+
+            npcs[i].m_model.draw();
         }
 
         simpleShader.unbind();

@@ -37,7 +37,7 @@ void Player::update(float dt, std::vector<Terrain>* terrains) {
 
     int index = floor(position.x / 800.0f) + 4 * (floor(position.z / 800.0f));
     if (index < 0 || index >= terrains->size()) {
-        std::cout << "Index broken" << std::endl;
+        // std::cout << "Index broken" << std::endl;
         index  = 0;
     }
     // std::cout << "Index: " << index << std::endl;

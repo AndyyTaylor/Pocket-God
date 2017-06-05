@@ -100,12 +100,12 @@ void Model::loadModel(const char * path) {
                                  &vertexIndex[0], &uvIndex[0], &normalIndex[0],
                                  &vertexIndex[1], &uvIndex[1], &normalIndex[1],
                                  &vertexIndex[2], &uvIndex[2], &normalIndex[2]);*/
-            int matches = fscanf(file, "%d//%d %d//%d %d//%d",
-                                &vertexIndex[0], &normalIndex[0],
-                                &vertexIndex[1], &normalIndex[1],
-                                &vertexIndex[2], &normalIndex[2]);
+            int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d",
+                                &vertexIndex[0], &uvIndex[0], &normalIndex[0],
+                                &vertexIndex[1], &uvIndex[1], &normalIndex[1],
+                                &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
 
-            if (matches != 6) {
+            if (matches != 9) {
                 std::cerr << "File cannot be read by this obj parser" << std::endl;
                 return;
             }
@@ -114,9 +114,9 @@ void Model::loadModel(const char * path) {
             vertexIndices.push_back(vertexIndex[1]);
             vertexIndices.push_back(vertexIndex[2]);
 
-            /*uvIndices.push_back(uvIndex[0]);
+            uvIndices.push_back(uvIndex[0]);
             uvIndices.push_back(uvIndex[1]);
-            uvIndices.push_back(uvIndex[2]);*/
+            uvIndices.push_back(uvIndex[2]);
 
             normalIndices.push_back(normalIndex[0]);
             normalIndices.push_back(normalIndex[1]);
@@ -131,9 +131,9 @@ void Model::loadModel(const char * path) {
         glm::vec3 vertex = temp_vertices[vertexIndex-1];
         vertices.push_back(vertex);
 
-        // unsigned int uvIndex = uvIndices[i];
-        // glm::vec2 uv = temp_vertices[uvIndex-1];
-        // uvs.push_back(uv);
+        unsigned int uvIndex = uvIndices[i];
+        glm::vec2 uv = temp_uvs[uvIndex-1];
+        uvs.push_back(uv);
 
         unsigned int normalIndex = normalIndices[i];
         glm::vec3 normal = temp_normals[normalIndex-1];
