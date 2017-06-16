@@ -14,11 +14,13 @@ class MasterHUD {
 
     void render();
     void draw();
+    
+    std::vector<HUDComponent> components;
+    bool visible = true;
 
  private:
     Shader::Shader_Program shaderProgram;
     Shader::Shader_Program sShader;
-    std::vector<HUDComponent> components;
 };
 
 #endif  /* MasterHUD */

@@ -12,18 +12,11 @@
 MasterHUD::MasterHUD(std::string vertPath, std::string fragPath, std::string frag2Path)
 : shaderProgram(vertPath, fragPath)
 , sShader(vertPath, frag2Path) {
-    Image component = Image(500, 5, 50, 50, "Coin.png");
-    components.push_back(component);
-    component = Image(0, 5, 50, 50, "menu.png");
-    components.push_back(component);
-    component = Image(800, 5, 50, 50, "Clock.png");
-    components.push_back(component);
-
-    Rect c = Rect(0, 0, 1280, 60, glm::vec4(1.0, 1.0, 1.0, 1.0));
-    components.push_back(c);
+    
 }
 
 void MasterHUD::render() {
+    if (!visible) return;
     sShader.bind();
 
     for (int i = 0; i < components.size(); i++) {

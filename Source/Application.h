@@ -27,6 +27,7 @@ class Application {
  private:
     Shader::Shader_Program simpleShader;
     MasterHUD hud;
+    MasterHUD interactHUD;
     Model model;
     EventHandler eventHandler;
     std::vector<Terrain> terrains;
