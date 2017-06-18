@@ -24,7 +24,7 @@ void EventHandler::input(Camera* camera, Player* player, std::vector<Terrain>* t
             SDL_Keycode key = event.key.keysym.sym;
             if (key == SDLK_w) {
                 player->movingForward = true;
-            } else if (key == SDLK_s) {
+            } else if (key == SDLK_s && !player->interacting) {
                 player->movingBackward = true;
             } else if (key == SDLK_a) {
                 player->movingLeft = true;
@@ -36,7 +36,25 @@ void EventHandler::input(Camera* camera, Player* player, std::vector<Terrain>* t
                 player->movingDown = true;
             } else if (key == SDLK_r) {
                 Display::toggleMesh();
+            } else if (key == SDLK_e) {
+                player->selectedItem = -1;
+                if (player->interacting) {
+                    player->interacting = false;
+                } else {
+                    player->interacting = true;
+                }
             }
+            else if (key == SDLK_0) player->selectedItem = -1;
+            else if (key == SDLK_1) player->selectedItem = 0;
+            else if (key == SDLK_2) player->selectedItem = 1;
+            else if (key == SDLK_3) player->selectedItem = 2;
+            else if (key == SDLK_4) player->selectedItem = 3;
+            else if (key == SDLK_5) player->selectedItem = 4;
+            else if (key == SDLK_6) player->selectedItem = 5;
+            else if (key == SDLK_7) player->selectedItem = 6;
+            else if (key == SDLK_8) player->selectedItem = 7;
+            else if (key == SDLK_b) player->buy = true;
+            else if (key == SDLK_s) player->sell = true;
         } else if (event.type == SDL_KEYUP) {
             SDL_Keycode key = event.key.keysym.sym;
             if (key == SDLK_w) {

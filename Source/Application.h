@@ -23,11 +23,15 @@ class Application {
     void runMainGameLoop();
 
     double getDelta();
+    
+    std::vector<std::string> itemnames = {"Dirt", "Rock", "Stone", "Iron", "Gold", "Diamond", "Bitcoin", "Dogecoin"};
+    std::vector<int> prices = {1, 3, 8, 21, 55, 144, 377, 754};
 
  private:
     Shader::Shader_Program simpleShader;
     MasterHUD hud;
     MasterHUD interactHUD;
+    MasterHUD menuHUD;
     Model model;
     EventHandler eventHandler;
     std::vector<Terrain> terrains;
@@ -36,6 +40,9 @@ class Application {
     Player player;
 
     std::chrono::high_resolution_clock::time_point timePrev;
+    std::chrono::high_resolution_clock::time_point start;
+    
+    int prevtimeinsec;
 };
 
 #endif /* APPLICATION_H_ */

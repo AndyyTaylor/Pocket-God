@@ -14,7 +14,48 @@ class Player : public Entity {
       movingForward = false, movingBackward = false;
 
     void update(float dt, std::vector<Terrain>* terrains);
-
+    float coins = 1000;
+    int prevcoins = 0;
+    int selectedItem = -1;
+    int prevSelectedItem = -1;
+    bool interacting = false;
+    bool buy = false;
+    bool sell = false;
+    
+    bool coinsChanged() {
+        if (coins != prevcoins){
+            prevcoins = coins;
+            return true;
+        }
+        return false;
+    }
+    
+    bool changedSelection() {
+        if (prevSelectedItem != selectedItem) {
+            prevSelectedItem = selectedItem;
+            return true;
+        }
+        return false;
+    }
+    
+    bool buying() {
+        if (buy){
+            buy = false;
+            return true;
+        }
+        return false;
+    }
+    
+    bool selling() {
+        if (sell) {
+            sell = false;
+            return true;
+        }
+        return false;
+    }
+    
+    std::vector<int> itemsowned = {0, 0, 0, 0, 0, 0, 0, 0};
+    
  protected:
     float speed = 150, jumpheight = 230;
     bool isOnGround = false;

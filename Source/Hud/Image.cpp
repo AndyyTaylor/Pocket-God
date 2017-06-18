@@ -13,7 +13,7 @@ Image::Image(int x2, int y2, int w, int h, std::string f) {  // HACK should be i
     width = w;
     height = h;
     filename = f;
-    type = 1;   // Global ENUM please!s
+    type = 2;   // Global ENUM please!s
 
     vertices.push_back(glm::vec3(x+0, y+height, 0));
     vertices.push_back(glm::vec3(x+width, y+height, 0));

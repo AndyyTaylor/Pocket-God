@@ -14,6 +14,7 @@ class MasterHUD {
 
     void render();
     void draw();
+    void updateText(std::vector<std::string> text);
     
     std::vector<HUDComponent> components;
     bool visible = true;

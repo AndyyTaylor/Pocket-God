@@ -14,9 +14,9 @@ class Text : public HUDComponent{
     Text(int x2, int y2, int width, int height, std::string txt, std::string filename);
 
     void setupBuffers();
-
+    //void loadText(std::string txt, std::string filename);
  protected:
-    std::vector<glm::vec2> uvs;
+    
     std::string filename;
 
     void generateVertices();

@@ -7,11 +7,15 @@
 
 class NPC : public Entity {
 public:
-    NPC(float x, float y, float z);
+    NPC();
+    NPC(float x, float y, float z, std::vector<float> priceoffsets);
     
     void update(float dt, std::vector<Terrain>* terrains);
     
     Model m_model;
+    std::vector<float> priceoffsets;
+    bool interacting = false;
+    
 private:
     glm::vec3 dpos;
     float speed = 50;

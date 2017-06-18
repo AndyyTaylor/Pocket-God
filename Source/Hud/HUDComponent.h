@@ -17,6 +17,7 @@ class HUDComponent {
     GLuint type;
 
     glm::vec4 getColour(){ return colour; }
+    void loadText(std::string txt, std::string filename);
 
  protected:
     GLuint m_vao;
@@ -25,6 +26,7 @@ class HUDComponent {
     glm::vec4 colour;
 
     std::vector<glm::vec3> vertices;
+    std::vector<glm::vec2> uvs;
 };
 
 

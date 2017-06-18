@@ -8,6 +8,7 @@
 #include "HUDComponent.h"
 #include "Image.h"
 #include "Rect.h"
+#include "Text.h"
 
 MasterHUD::MasterHUD(std::string vertPath, std::string fragPath, std::string frag2Path)
 : shaderProgram(vertPath, fragPath)
@@ -36,4 +37,15 @@ void MasterHUD::render() {
     }
 
     shaderProgram.unbind();
+}
+
+void MasterHUD::updateText(std::vector<std::string> txt) {
+    int index = 0;
+    for (int i = 0; i < components.size(); i++) {
+        if (components[i].type == 1) {
+            components[i].loadText(txt[index], "bmpfont.png");
+            index++;
+            if (index >= txt.size()) return;
+        }
+    }
 }
