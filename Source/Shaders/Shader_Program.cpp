@@ -15,6 +15,7 @@ Shader_Program::Shader_Program(const std::string &vertexShaderFile,
     m_mLocation = glGetUniformLocation(m_programId, "M");
     m_vLocation = glGetUniformLocation(m_programId, "V");
     m_cLocation = glGetUniformLocation(m_programId, "Colour");
+    m_lLocation = glGetUniformLocation(m_programId, "In_LightPosition_worldspace");
 }
 
 void Shader_Program::bind() {
@@ -35,5 +36,9 @@ void Shader_Program::loadMVP(const glm::mat4 &matrix,
 
 void Shader_Program::loadColour(const glm::vec4 &colour) {
     glUniform4f(m_cLocation, colour.x, colour.y, colour.z, colour.w);
+}
+
+void Shader_Program::loadLighting(const glm::vec3 &lightPosition) {
+    glUniform3f(m_lLocation, lightPosition.x, lightPosition.y, lightPosition.z);
 }
 }   // namespace Shader

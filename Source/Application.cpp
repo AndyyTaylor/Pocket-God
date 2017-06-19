@@ -83,6 +83,12 @@ void Application::runMainGameLoop() {
         Display::clear();
         simpleShader.bind();
         
+        float x = 3200 - timeinsec*18;
+        float y = std::abs(sqrt(1600*1600 - ((x-1600)/2)*((x-1600)/2)));
+        if (x < 0){ y = -99; }
+        glm::vec3 lpos = glm::vec3(x, y, 1600); // semiCircle stuff
+        simpleShader.loadLighting(lpos);
+        
         if (timeinsec > 180) {
             if (!player.gameEnded) {
                 player.gameEnded = true;
@@ -107,7 +113,7 @@ void Application::runMainGameLoop() {
             player.update(delta, &terrains);
         }
         camera.update((Entity) player);
-        
+
         for (int i = 0; i < npcs.size(); i++) {
             if (!player.interacting) npcs[i].update(delta, &terrains);
             

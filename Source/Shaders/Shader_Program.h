@@ -16,6 +16,7 @@ class Shader_Program {
 
     void loadMVP(const glm::mat4 &matrix, const glm::mat4 &mmatrix, const glm::mat4 &vmatrix);
     void loadColour(const glm::vec4 &colour);
+    void loadLighting(const glm::vec3 &lightPosition);
 
  private:
     GLuint m_programId;
@@ -23,6 +24,7 @@ class Shader_Program {
     GLuint m_mLocation;
     GLuint m_vLocation;
     GLuint m_cLocation;
+    GLuint m_lLocation;
 };
 }   // namespace Shader
 
