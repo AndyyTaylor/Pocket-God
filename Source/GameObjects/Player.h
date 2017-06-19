@@ -14,7 +14,7 @@ class Player : public Entity {
       movingForward = false, movingBackward = false;
 
     void update(float dt, std::vector<Terrain>* terrains);
-    float coins = 1000;
+    float coins = 50;
     int prevcoins = 0;
     int selectedItem = -1;
     int prevSelectedItem = -1;
@@ -55,10 +55,13 @@ class Player : public Entity {
     }
     
     std::vector<int> itemsowned = {0, 0, 0, 0, 0, 0, 0, 0};
+    bool restartGame = false; // Yeah I'm really out of time
+    bool gameEnded = false;
     
  protected:
-    float speed = 150, jumpheight = 230;
+    float speed = 250, jumpheight = 260;
     bool isOnGround = false;
+    
 
     glm::vec3 dpos;
 };

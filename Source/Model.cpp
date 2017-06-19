@@ -105,18 +105,20 @@ void Model::loadModel(const char * path) {
                                 &vertexIndex[1], &uvIndex[1], &normalIndex[1],
                                 &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
 
-            if (matches != 9) {
+            if (matches != 9 && matches != 6) {
                 std::cerr << "File cannot be read by this obj parser" << std::endl;
                 return;
-            }
+            } if (matches == 6) textured = false;
 
             vertexIndices.push_back(vertexIndex[0]);
             vertexIndices.push_back(vertexIndex[1]);
             vertexIndices.push_back(vertexIndex[2]);
-
-            uvIndices.push_back(uvIndex[0]);
-            uvIndices.push_back(uvIndex[1]);
-            uvIndices.push_back(uvIndex[2]);
+            
+            if (textured) {
+                uvIndices.push_back(uvIndex[0]);
+                uvIndices.push_back(uvIndex[1]);
+                uvIndices.push_back(uvIndex[2]);
+            }
 
             normalIndices.push_back(normalIndex[0]);
             normalIndices.push_back(normalIndex[1]);
@@ -131,9 +133,11 @@ void Model::loadModel(const char * path) {
         glm::vec3 vertex = temp_vertices[vertexIndex-1];
         vertices.push_back(vertex);
 
-        unsigned int uvIndex = uvIndices[i];
-        glm::vec2 uv = temp_uvs[uvIndex-1];
-        uvs.push_back(uv);
+        if (textured) {
+            unsigned int uvIndex = uvIndices[i];
+            glm::vec2 uv = temp_uvs[uvIndex-1];
+            uvs.push_back(uv);
+        }
 
         unsigned int normalIndex = normalIndices[i];
         glm::vec3 normal = temp_normals[normalIndex-1];
@@ -162,7 +166,7 @@ void Model::setupBuffers(std::string filename) {
     glBindBuffer(GL_ARRAY_BUFFER, norm_vbo);
     glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3),
                  normals.data(), GL_STATIC_DRAW);
-
+                 
     GLuint uv_vbo;
     glGenBuffers(1, &uv_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, uv_vbo);

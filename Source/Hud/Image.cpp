@@ -63,7 +63,7 @@ void Image::setupBuffers() {
     SDL_Surface* Surface = IMG_Load(("/Data/imgs/" + filename).c_str());
 
     if (Surface == NULL) {
-        std::cerr << "Failed to load image" << std::endl;
+        std::cerr << "Failed to load image: " << IMG_GetError() << std::endl;
         return;
     }
 

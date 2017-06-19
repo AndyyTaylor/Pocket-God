@@ -8,7 +8,7 @@
 class NPC : public Entity {
 public:
     NPC();
-    NPC(float x, float y, float z, std::vector<float> priceoffsets);
+    NPC(float x, float y, float z, std::vector<float> priceoffsets, std::string objfile, std::string matfile);
     
     void update(float dt, std::vector<Terrain>* terrains);
     

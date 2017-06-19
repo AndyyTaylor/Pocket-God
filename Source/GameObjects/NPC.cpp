@@ -6,12 +6,12 @@ extern std::string PROJECT_PATH;
 
 NPC::NPC(){}
 
-NPC::NPC(float x, float y, float z, std::vector<float> priceoffsets)
+NPC::NPC(float x, float y, float z, std::vector<float> priceoffsets, std::string objfile, std::string matfile)
 : priceoffsets(priceoffsets) {
     position = glm::vec3(x, y, z);
     scale = glm::vec3(45, 45, 45);
-    m_model.loadModel((PROJECT_PATH + "/Data/models/lumberJack.obj").c_str());
-    m_model.setupBuffers("models/lumberJack_diffuse.png");
+    m_model.loadModel((PROJECT_PATH + objfile).c_str());
+    m_model.setupBuffers(matfile);
 }
 
 void NPC::update(float dt, std::vector<Terrain>* terrains) {

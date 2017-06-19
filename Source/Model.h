@@ -26,6 +26,7 @@ class Model {
  protected:
     GLuint m_vao;
     GLuint TextureID;
+    bool textured = true;
 
     std::vector<glm::vec3> vertices;
     std::vector<glm::vec2> uvs;

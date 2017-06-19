@@ -11,7 +11,7 @@ class Player;
 class EventHandler {
  public:
     EventHandler();
-    void input(Camera* camera, Player* player, std::vector<Terrain>* terrains);
+    void input(Player* player);
 };
 
 #endif /* EVENTHANDLER_H_ */

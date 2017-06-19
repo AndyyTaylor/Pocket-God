@@ -9,7 +9,7 @@
 class Terrain {
  public:
     static const int SIZE = 800;
-    static const int VERTEX_COUNT = 256;
+    static const int VERTEX_COUNT = 128;
     static const int MAX_HEIGHT = 200;
     static const int MAX_PIXEL_COLOUR = 256*256*256;
 

@@ -14,7 +14,7 @@
 EventHandler::EventHandler() {
 }
 
-void EventHandler::input(Camera* camera, Player* player, std::vector<Terrain>* terrains) {
+void EventHandler::input(Player* player) {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT
@@ -22,6 +22,7 @@ void EventHandler::input(Camera* camera, Player* player, std::vector<Terrain>* t
             Display::close();
         } else if (event.type == SDL_KEYDOWN) {
             SDL_Keycode key = event.key.keysym.sym;
+            if (player->gameEnded) player->restartGame = true;
             if (key == SDLK_w) {
                 player->movingForward = true;
             } else if (key == SDLK_s && !player->interacting) {
@@ -74,10 +75,10 @@ void EventHandler::input(Camera* camera, Player* player, std::vector<Terrain>* t
             player->rotation.y += event.motion.xrel/3;  // MOUSE_SENSITIVITY
             player->rotation.x += event.motion.yrel/3;
         } else if (event.type == SDL_MOUSEWHEEL) {
-            for (int i = 0; i < terrains->size(); i++) {
+            //for (int i = 0; i < terrains->size(); i++) {
                 /// Terrain* t = terrains[i];
                 // t->updateDiv(event.wheel.y);
-            }
+            //}
         }
     }
 }

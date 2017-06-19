@@ -24,7 +24,7 @@ class Application {
 
     double getDelta();
     
-    std::vector<std::string> itemnames = {"Dirt", "Rock", "Stone", "Iron", "Gold", "Diamond", "Bitcoin", "Dogecoin"};
+    std::vector<std::string> itemnames = {"Dirt", "Wood", "Stone", "Iron", "Gold", "Diamond", "Bitcoin", "Dogecoin"};
     std::vector<int> prices = {1, 3, 8, 21, 55, 144, 377, 754};
 
  private:
@@ -32,6 +32,7 @@ class Application {
     MasterHUD hud;
     MasterHUD interactHUD;
     MasterHUD menuHUD;
+    MasterHUD endHUD;
     Model model;
     EventHandler eventHandler;
     std::vector<Terrain> terrains;
@@ -43,6 +44,11 @@ class Application {
     std::chrono::high_resolution_clock::time_point start;
     
     int prevtimeinsec;
+    int eventItem = -1;
+    int eventMod = 0;
+    
+    int prevEventItem = -1;
+    int prevEventMod = 0;
 };
 
 #endif /* APPLICATION_H_ */

@@ -31,7 +31,7 @@ void Player::update(float dt, std::vector<Terrain>* terrains) {
         dpos.y = jumpheight;
     }
 
-    dpos.y -= 9.8;
+    dpos.y -= 9.8*dt*50;
 
     position += dpos*dt;
 
