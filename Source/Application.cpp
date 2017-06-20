@@ -94,7 +94,12 @@ void Application::runMainGameLoop() {
                 player.gameEnded = true;
                 float score = player.coins;
                 for (int i = 0; i < prices.size(); i++){
-                    score += prices[i] * player.itemsowned[i];
+                    if (itemnames[i] != "Loan"){
+                        score += prices[i] * player.itemsowned[i];
+                    } else {
+                        score += prices[i] * player.itemsowned[i] * 1.5;
+                    }
+                    
                     player.itemsowned[i] = 0;
                 }
                 
@@ -173,7 +178,11 @@ void Application::runMainGameLoop() {
                             }
                         } if (sell) {
                             if (player.itemsowned[player.selectedItem] > 0) {
-                                player.coins += price;
+                                if (itemnames[player.selectedItem] != "Loan"){
+                                    player.coins += price;
+                                } else {
+                                    player.coins += price*1.5;
+                                }
                                 player.itemsowned[player.selectedItem] -= 1;
                             }
                         }
