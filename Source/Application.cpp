@@ -173,7 +173,7 @@ void Application::runMainGameLoop() {
                             }
                         } if (sell) {
                             if (player.itemsowned[player.selectedItem] > 0) {
-                                player.coins += price*0.9;
+                                player.coins += price;
                                 player.itemsowned[player.selectedItem] -= 1;
                             }
                         }
