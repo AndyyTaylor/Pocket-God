@@ -22,7 +22,9 @@ void EventHandler::input(Player* player) {
             Display::close();
         } else if (event.type == SDL_KEYDOWN) {
             SDL_Keycode key = event.key.keysym.sym;
-            if (player->gameEnded) player->restartGame = true;
+            if (player->gameEnded) {
+                player->restartGame = true;
+            }
             if (key == SDLK_w) {
                 player->movingForward = true;
             } else if (key == SDLK_s && !player->interacting) {
@@ -54,6 +56,7 @@ void EventHandler::input(Player* player) {
             else if (key == SDLK_6) player->selectedItem = 5;
             else if (key == SDLK_7) player->selectedItem = 6;
             else if (key == SDLK_8) player->selectedItem = 7;
+            else if (key == SDLK_9) player->selectedItem = 8;
             else if (key == SDLK_b) player->buy = true;
             else if (key == SDLK_s) player->sell = true;
         } else if (event.type == SDL_KEYUP) {

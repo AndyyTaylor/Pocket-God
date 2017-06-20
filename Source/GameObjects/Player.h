@@ -54,7 +54,7 @@ class Player : public Entity {
         return false;
     }
     
-    std::vector<int> itemsowned = {0, 0, 0, 0, 0, 0, 0, 0};
+    std::vector<int> itemsowned = {0, 0, 0, 0, 0, 0, 0, 0, 0};
     bool restartGame = false; // Yeah I'm really out of time
     bool gameEnded = false;
     

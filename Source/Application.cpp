@@ -41,8 +41,8 @@ Application::Application()
     menuHUD.components.push_back(Rect(200, 80, 900, 600, glm::vec4(0, 0, 1, 1.0)));
     menuHUD.components.push_back(Text(400, 100, 70, 70, "Title", "bmpfont.png"));
     menuHUD.components.push_back(Text(210, 180, 50, 50, "Name    Amt", "bmpfont.png"));
-    for (int i = 0; i < 8; i++) {
-        menuHUD.components.push_back(Text(210, 240+50*i, 40, 40, "Item " + std::to_string(i), "bmpfont.png"));
+    for (int i = 0; i < prices.size(); i++) {
+        menuHUD.components.push_back(Text(210, 240+45*i, 40, 40, "Item " + std::to_string(i), "bmpfont.png"));
     }
     
     endHUD.components.push_back(Text(20, 5, 50, 50, "Score", "bmpfont.png"));
@@ -50,20 +50,20 @@ Application::Application()
     endHUD.components.push_back(Text(20, 600, 50, 50, "Press any key", "bmpfont.png"));
     endHUD.components.push_back(Text(20, 660, 50, 50, "to continue", "bmpfont.png"));
     
-    NPC n = NPC(200, 0, 200, {1, 0.85, 1, 1, 1, 1.2, 1.1, 1.1}, "/Data/models/lumberJack.obj", "models/lumberJack_diffuse.png");
+    NPC n = NPC(200, 0, 200, {1, 0.85, 1, 1, 1, 1.2, 1.1, 1.1, 1}, "/Data/models/lumberJack.obj", "models/lumberJack_diffuse.png");
     npcs.push_back(n);
     
-    n = NPC(2800, 0, 200, {1, 1.1, 0.95, 1, 0.85, 0.9, 1, 1}, "/Data/models/landlord.obj", "models/LandLord_diffuse.png");
+    n = NPC(2800, 0, 200, {1, 1.1, 0.95, 1, 0.85, 0.9, 1, 1, 1}, "/Data/models/landlord.obj", "models/LandLord_diffuse.png");
     npcs.push_back(n);
     
-    n = NPC(2800, 0, 2800, {1.1, 0.9, 1, 1, 1.05, 1, 1, 1.3}, "/Data/models/fox.obj", "");
+    n = NPC(2800, 0, 2800, {1.1, 0.9, 1, 1, 1.05, 1, 1, 1.3, 1}, "/Data/models/fox.obj", "");
     n.scale = glm::vec3(0.9, 0.9, 0.9);
     npcs.push_back(n);
     
-    n = NPC(1400, 0, 1400, {1.2, 1, 1, 1.2, 1.05, 1, 1, 0.9}, "/Data/models/lumberJack.obj", "models/lumberJack_diffuse.png");
+    n = NPC(1400, 0, 1400, {1.2, 1, 1, 1.2, 1.05, 1, 1, 0.9, 1}, "/Data/models/lumberJack.obj", "models/lumberJack_diffuse.png");
     npcs.push_back(n);
     
-    n = NPC(200, 0, 2800, {1.1, 0.9, 1, 1, 1.05, 1, 0.85, 1.1}, "/Data/models/landlord.obj", "models/LandLord_diffuse.png");
+    n = NPC(200, 0, 2800, {1.1, 0.9, 1, 1, 1.05, 1, 0.85, 1.1, 1}, "/Data/models/landlord.obj", "models/LandLord_diffuse.png");
     npcs.push_back(n);
     
     start = std::chrono::high_resolution_clock::now();
@@ -89,11 +89,18 @@ void Application::runMainGameLoop() {
         glm::vec3 lpos = glm::vec3(x, y, 1600); // semiCircle stuff
         simpleShader.loadLighting(lpos);
         
-        if (timeinsec > 180) {
+        if (timeinsec > 10) {
             if (!player.gameEnded) {
                 player.gameEnded = true;
-                endHUD.updateText({"Score: " + std::to_string((int) player.coins)});
+                float score = player.coins;
+                for (int i = 0; i < prices.size(); i++){
+                    score += prices[i] * player.itemsowned[i];
+                    player.itemsowned[i] = 0;
+                }
+                
+                endHUD.updateText({"Score: " + std::to_string((int) score)});
             } if (player.restartGame) {
+                player.restartGame = false;
                 player.gameEnded = false;
                 start = std::chrono::high_resolution_clock::now();
                 player.coins = 50;

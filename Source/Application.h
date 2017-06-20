@@ -24,8 +24,8 @@ class Application {
 
     double getDelta();
     
-    std::vector<std::string> itemnames = {"Dirt", "Wood", "Stone", "Iron", "Gold", "Diamond", "Bitcoin", "Dogecoin"};
-    std::vector<int> prices = {1, 3, 8, 21, 55, 144, 377, 754};
+    std::vector<std::string> itemnames = {"Dirt", "Wood", "Stone", "Iron", "Gold", "Diamond", "Bitcoin", "Dogecoin", "Loan"};
+    std::vector<int> prices = {1, 3, 8, 21, 55, 144, 377, 754, -50};
 
  private:
     Shader::Shader_Program simpleShader;
