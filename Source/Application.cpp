@@ -89,7 +89,7 @@ void Application::runMainGameLoop() {
         glm::vec3 lpos = glm::vec3(x, y, 1600); // semiCircle stuff
         simpleShader.loadLighting(lpos);
         
-        if (timeinsec > 10) {
+        if (timeinsec > 180) {
             if (!player.gameEnded) {
                 player.gameEnded = true;
                 float score = player.coins;
